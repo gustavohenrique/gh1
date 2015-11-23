@@ -20,6 +20,7 @@ func main() {
     mux.HandleFunc("/add", handler.Add).Methods("POST")
     mux.HandleFunc("/find", handler.Find).Methods("GET")
     mux.HandleFunc("/{code}", handler.Redirect).Methods("GET")
+    mux.HandleFunc("/", handler.Home).Methods("GET")
 
     port := GetEnv("PORT", "5000")
 

@@ -20,6 +20,10 @@ func (this Handler) getService() *Shortener {
     return shortener
 }
 
+func (this Handler) Home(w http.ResponseWriter, r *http.Request) {
+    http.Redirect(w, r, GetEnv("FRONTEND_URL", "http://gustavohenrique.github.io/gh1"), 301)
+}
+
 func (this Handler) Find(w http.ResponseWriter, r *http.Request) {
     w.Header().Set("Content-Type", "application/json; charset=UTF-8")
     w.Header().Set("Access-Control-Allow-Origin", "*")
