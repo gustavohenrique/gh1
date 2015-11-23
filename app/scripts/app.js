@@ -4,13 +4,8 @@
     var app = angular.module('MainApp', [
         'MainRouter',
         'angular-loading-bar',
-
-        'controllers.Auth',
-        'controllers.Menu',
         'controllers.Pagination',
-
         'services.Pagination',
-
         'directives.Pagination',
         'directives.Tabular'
     ]);
