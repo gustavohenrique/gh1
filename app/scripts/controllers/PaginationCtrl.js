@@ -56,7 +56,7 @@
         }
 
         function _putHttpPreffixInLongUrl (longUrl) {
-            if (! longUrl.startsWith("http")) {
+            if (! longUrl.startsWith('http')) {
                 longUrl = 'http://' + longUrl;
             }
             return {'longUrl': longUrl};
