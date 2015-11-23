@@ -21,7 +21,7 @@ func main() {
     mux.HandleFunc("/find", handler.Find).Methods("GET")
     mux.HandleFunc("/{code}", handler.Redirect).Methods("GET")
 
-    port := os.GetEnv("PORT", "5000")
+    port := GetEnv("PORT", "5000")
 
     log.Println("Server has been started on port " + port)
     log.Fatal(http.ListenAndServe(":"+port, mux))
