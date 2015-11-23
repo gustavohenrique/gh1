@@ -1,0 +1,14 @@
+.tmp
+.sass-cache
+.DS_Store
+*.log
+*~
+node_modules
+dist
+bower_components
+test/bower_components
+bin
+pkg
+**/*/src/github.com
+**/*/src/golang.org
+.git

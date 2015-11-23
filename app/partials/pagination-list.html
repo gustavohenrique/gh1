@@ -1,0 +1,56 @@
+<div>
+    <div class="ui top attached pointing secondary menu">
+        <a tab-item id="mytab1" class="tab item active">Add</a>
+        <a tab-item id="mytab2" class="tab item">URLs</a>
+    </div>
+
+    <div class="ui bottom attached tab segment active mytab1">
+        <div class="ui fluid action labeled input">
+            <input type="text" ng-model="vm.longUrl" ng-keypress="($event.which === 13)?vm.save():0">
+            <button ng-click="vm.save()" class="ui primary button">Shorten URL</button>
+        </div>
+        <div class="ui pointing red basic label" ng-show="vm.errors.Add.hasError">
+          Please enter a valid URL
+        </div>
+
+        <div class="ui segments" ng-show="vm.website.shortUrl">
+            <div class="ui segment center aligned">
+                <h3>{{ vm.website.title }}</h3>
+            </div>
+            <div class="ui gray secondary segment center aligned">
+                <h1>{{ vm.website.shortUrl }}</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="ui bottom attached tab segment mytab2">
+        <div class="ui header centered align">
+            <pagination rows="10"/>
+        </div>
+        <div class="ui centered align cards full" ng-hide="vm.errors.Find.hasError">
+            <div class="card" ng-repeat="item in vm.paginationData.items track by $index">
+                <div class="content">
+                    <div class="header">{{ item.title }}</div>
+                    <div class="meta">
+                        <div>{{ item.lastAccess | date : 'dd/MM/yyyy' }}</div>
+                        <div>{{ item.hits }} Hits</div>
+                    </div>
+                    <div class="description">{{ item.longUrl }}</div>
+                </div>
+                <div class="extra content">
+                    <div class="ui success message">
+                        <div class="header" style="text-align:center">
+                            <a title="Click to visit {{ item.title }}" href="{{ vm.shortUrl }}{{ item.code }}">
+                                <h3>{{ vm.shortUrl }}{{ item.code }}</h3>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ui header centered align"  ng-hide="vm.errors.Find.hasError">
+            <pagination rows="10"/>
+        </div>
+    </div>
+
+</div>
