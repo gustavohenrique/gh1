@@ -12,3 +12,13 @@ pkg
 **/*/src/github.com
 **/*/src/golang.org
 .git
+README.md
+app
+bower.json
+bower_components
+dist
+gulpfile.js
+node_modules
+package.json
+server
+tests
