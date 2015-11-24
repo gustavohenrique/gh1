@@ -11,13 +11,46 @@ In this first version I learned about:
 
 If you have tips or advices to improve my code please, share with me.
 
-## Configure
+## Dev Environment
+
+### 1. Setup Go environment
 
 ```sh
 GOPATH=$PWD
 PATH=$PATH:$GOPATH/bin
 go get github.com/tools/godep
 godep restore src/gh1
+```
+
+### 2. Run a PostgreSQL container
+
+```
+$ docker run --name some-postgres -e POSTGRES_PASSWORD=root -d postgres
+```
+
+### 3. Create database/table
+
+```bash
+$ docker run -it --link some-postgres:postgres --rm postgres sh -c 'exec psql -h "$POSTGRES_PORT_5432_TCP_ADDR" -p "$POSTGRES_PORT_5432_TCP_PORT" -U postgres'
+```
+
+Inside the psql:
+
+```sql
+postgres=# create database gh1_test;
+postgres=# \c gh1_test
+gh1_test=# create table websites (
+	id serial not null primary key,
+	title varchar(250) not null,
+	long_url varchar(1000) not null,
+	code varchar(10) not null,
+	created_at date default current_date,
+	last_access date default current_date,
+	hits integer default 0,
+	is_visible boolean not null default true,
+	constraint long_url unique(long_url),
+	constraint code unique(code)
+);
 ```
 
 ## License
