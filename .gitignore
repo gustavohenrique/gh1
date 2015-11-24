@@ -9,6 +9,5 @@ bower_components
 test/bower_components
 bin
 pkg
-**/*/src/github.com
-**/*/src/golang.org
-.git
+src/github.com
+src/golang.org
