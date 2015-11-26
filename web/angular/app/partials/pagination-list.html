@@ -17,8 +17,12 @@
             <div class="ui segment center aligned">
                 <h3>{{ vm.website.title }}</h3>
             </div>
-            <div class="ui gray secondary segment center aligned">
-                <h1>{{ vm.website.shortUrl }}</h1>
+            <div class="ui segment center aligned" style="background-color:#f9f9f9">
+                <qrcode version="2" error-correction-level="M" size="100" data="{{ vm.shortUrl }}{{ item.code }}" href="{{ vm.shortUrl }}{{ item.code }}"></qrcode>
+            </div>
+            <div class="ui gray segment center aligned">
+
+                <h1><a href="{{ vm.website.shortUrl }}" title="{{ vm.website.title }}">{{ vm.website.shortUrl }}</a></h1>
             </div>
         </div>
     </div>
@@ -32,12 +36,16 @@
                 <div class="content">
                     <div class="header">{{ item.title }}</div>
                     <div class="meta">
-                        <div>{{ item.lastAccess | date : 'dd/MM/yyyy' }}</div>
-                        <div>{{ item.hits }} Hits</div>
+                        <span class="right floated time">{{ item.hits }} Hits</span>
+                        <span>Last access on {{ item.lastAccess | date : 'dd/MM/yyyy' }}</span>
                     </div>
                     <div class="description">{{ item.longUrl }}</div>
+
                 </div>
                 <div class="extra content">
+                    <div style="text-align:center">
+                        <qrcode version="2" error-correction-level="M" size="100" data="{{ vm.shortUrl }}{{ item.code }}" href="{{ vm.shortUrl }}{{ item.code }}"></qrcode>
+                    </div>
                     <div class="ui success message">
                         <div class="header" style="text-align:center">
                             <a title="Click to visit {{ item.title }}" href="{{ vm.shortUrl }}{{ item.code }}">

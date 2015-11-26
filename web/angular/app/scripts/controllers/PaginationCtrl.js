@@ -28,11 +28,11 @@
 
         function save () {
             vm.website = _putHttpPreffixInLongUrl(vm.longUrl);
-            vm.longUrl = '';
             paginationService.save(vm.website)
                 .then(function (res) {
                     vm.website = res.data;
                     vm.website.shortUrl = Constants.shortenerUrl + res.data.code;
+                    vm.longUrl = '';
                     _setError('Add', res);
                 })
                 .catch(function (e) {

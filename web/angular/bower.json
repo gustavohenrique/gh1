@@ -5,6 +5,7 @@
     "angular": "~1.4.7",
     "angular-route": "~1.4.7",
     "angular-loading-bar": "~0.8.0",
-    "semantic-ui": "~2.1.4"
+    "semantic-ui": "~2.1.4",
+    "angular-qrcode": "monospaced/angular-qrcode#~6.1.3"
   }
 }

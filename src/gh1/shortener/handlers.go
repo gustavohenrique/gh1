@@ -98,7 +98,7 @@ func (this Handler) Redirect(w http.ResponseWriter, r *http.Request) {
     service := this.getService()
     website, err := service.FindByCode(vars["code"])
     if err != nil {
-        w.WriteHeader(404)
+        http.Redirect(w, r, "http://gustavohenrique.github.io/gh1/404/404.html", 301)
     } else {
         service.IncreaseHitsById(website.Id)
         http.Redirect(w, r, website.LongUrl, 301)

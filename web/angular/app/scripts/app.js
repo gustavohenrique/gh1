@@ -7,11 +7,13 @@
         'controllers.Pagination',
         'services.Pagination',
         'directives.Pagination',
-        'directives.Tabular'
+        'directives.Tabular',
+        'monospaced.qrcode'
     ]);
 
     app.constant('Constants', {
-        apiBaseUrl: 'http://gh1.herokuapp.com/',
+        // apiBaseUrl: 'http://gh1.herokuapp.com/',
+        apiBaseUrl: 'http://localhost:5000/',
         shortenerUrl: 'http://gh1.co/'
     });
 
