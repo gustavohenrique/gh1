@@ -9,7 +9,7 @@
 
     function PaginationService ($http, $q, Constants) {
 
-        var ENDPOINT = Constants.apiBaseUrl + 'shortener'
+        var ENDPOINT = Constants.apiBaseUrl + 'shortener';
 
         this.search = function (perPage, page) {
             var url = ENDPOINT + '?1=1';
