@@ -4,6 +4,7 @@ import (
     "database/sql"
     "errors"
     _ "gh1/Godeps/_workspace/src/github.com/lib/pq"
+    "strings"
     "time"
 )
 
@@ -24,9 +25,29 @@ func (this *Postgres) Connect() error {
     return db.Ping()
 }
 
-func (this *Postgres) AddUrl(url string, title string, code string) error {
+func (this *Postgres) AddUrl(url string, title string, code string, tags string) error {
+    sql := "insert into websites (long_url, title, code, tags) values ($1, $2, $3, 'ARRAY')"
+    if len(tags) > 0 {
+        sql = strings.Replace(sql, "ARRAY", tags, 1)
+    } else {
+        sql = strings.Replace(sql, ", 'ARRAY'", "", 1)
+        sql = strings.Replace(sql, ", tags", "", 1)
+    }
     tx, _ := this.db.Begin()
-    tx.Exec("insert into websites (long_url, title, code) values ($1, $2, $3)", url, title, code)
+    tx.Exec(sql, url, title, code)
+    return tx.Commit()
+}
+
+func (this *Postgres) UpdateUrl(title string, code string, tags string) error {
+    sql := "update websites set title = $1, tags = 'ARRAY' where code = $2"
+    if len(tags) > 0 {
+        sql = strings.Replace(sql, "ARRAY", tags, 1)
+    } else {
+        sql = strings.Replace(sql, ", 'ARRAY'", "", 1)
+        sql = strings.Replace(sql, ", tags", "", 1)
+    }
+    tx, _ := this.db.Begin()
+    tx.Exec(sql, title, code)
     return tx.Commit()
 }
 
@@ -37,7 +58,7 @@ func (this *Postgres) IncreaseHitsById(id int64) error {
 
 func (this *Postgres) FindByCode(code string) (result map[string]interface{}, err error) {
     var rows *sql.Rows
-    rows, err = this.db.Query("select id, long_url, code, title, created_at, last_access, hits, is_visible from websites where code = $1 limit 1", code)
+    rows, err = this.db.Query("select id, long_url, code, title, created_at, last_access, hits, is_visible, tags from websites where code = $1 limit 1", code)
     defer rows.Close()
 
     if err == nil {
@@ -52,7 +73,7 @@ func (this *Postgres) FindByCode(code string) (result map[string]interface{}, er
 
 func (this *Postgres) FindByUrl(url string) (result map[string]interface{}, err error) {
     var rows *sql.Rows
-    rows, err = this.db.Query("select id, long_url, code, title, created_at, last_access, hits, is_visible from websites where long_url = $1 limit 1", url)
+    rows, err = this.db.Query("select id, long_url, code, title, created_at, last_access, hits, is_visible, tags from websites where long_url = $1 limit 1", url)
     defer rows.Close()
 
     if err == nil {
@@ -67,7 +88,7 @@ func (this *Postgres) FindByUrl(url string) (result map[string]interface{}, err 
 
 func (this Postgres) FindAll(offset int, limit int) (results []map[string]interface{}, err error) {
     var rows *sql.Rows
-    rows, err = this.db.Query("select id, long_url, code, title, created_at, last_access, hits, is_visible "+
+    rows, err = this.db.Query("select id, long_url, code, title, created_at, last_access, hits, is_visible, tags "+
         "from websites where is_visible = true "+
         "order by id desc "+
         "offset $1 limit $2", offset, limit)
@@ -94,8 +115,9 @@ func (this *Postgres) mapper(rows *sql.Rows) (results []map[string]interface{}, 
             is_visible  bool
             created_at  time.Time
             last_access time.Time
+            tags        string
         )
-        err = rows.Scan(&id, &long_url, &code, &title, &created_at, &last_access, &hits, &is_visible)
+        err = rows.Scan(&id, &long_url, &code, &title, &created_at, &last_access, &hits, &is_visible, &tags)
         if err != nil {
             return nil, err
         }
@@ -107,6 +129,7 @@ func (this *Postgres) mapper(rows *sql.Rows) (results []map[string]interface{}, 
         result["LastAccess"] = last_access
         result["Hits"] = hits
         result["IsVisible"] = is_visible
+        result["Tags"] = tags
         rowsAffected += 1
         results = append(results, result)
     }

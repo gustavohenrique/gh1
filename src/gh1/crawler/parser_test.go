@@ -5,21 +5,21 @@ import (
     "testing"
 )
 
-func TestGetTitleFromValidUrl(t *testing.T) {
+func TestGetInfoFromValidUrl(t *testing.T) {
     parser := Parser{}
-    title, _ := parser.GetTitle("http://blog.gustavohenrique.net")
-    assert.Equal(t, "GustavoHenrique.net", title)
+    result, _ := parser.GetInfo("http://blog.gustavohenrique.net")
+    assert.Equal(t, "GustavoHenrique.net", result["title"])
 }
 
-func TestGetTitleFromInvalidUrlShouldReturnError(t *testing.T) {
+func TestGetInfoFromInvalidUrlShouldReturnError(t *testing.T) {
     parser := Parser{}
-    title, err := parser.GetTitle("xxx")
+    result, err := parser.GetInfo("xxx")
     assert.NotNil(t, err)
-    assert.Equal(t, "", title)
+    assert.Equal(t, "", result["title"])
 }
 
-func TestGetTitleFromNoPrefixUrl(t *testing.T) {
+func TestGetInfoFromNoPrefixUrl(t *testing.T) {
     parser := Parser{}
-    title, _ := parser.GetTitle("blog.gustavohenrique.net")
-    assert.Equal(t, "", title)
+    result, _ := parser.GetInfo("blog.gustavohenrique.net")
+    assert.Equal(t, "", result["title"])
 }

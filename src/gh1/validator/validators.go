@@ -1,6 +1,6 @@
-package shortener
+package validator
 
-import "github.com/asaskevich/govalidator"
+import "gh1/Godeps/_workspace/src/github.com/asaskevich/govalidator"
 
 type Validator struct{}
 

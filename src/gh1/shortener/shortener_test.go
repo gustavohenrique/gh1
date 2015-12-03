@@ -12,6 +12,9 @@ func TestFindByUrlShouldReturnWebsite(t *testing.T) {
     assert.Nil(t, err)
     assert.Equal(t, "4hd74", website.Code)
     assert.Equal(t, int64(1), website.Id)
+    assert.Equal(t, 2, len(website.Tags))
+    assert.Equal(t, "golang", website.Tags[0])
+    assert.Equal(t, "postgres", website.Tags[1])
 }
 
 func TestFindByUrlWhenNotExistsShouldReturnError(t *testing.T) {
@@ -34,6 +37,7 @@ func TestAddUrlShouldReturnCode(t *testing.T) {
     website.LongUrl = "http://google.com"
     website.Title = "Google"
     website.Code = "a8xo9"
+    website.Tags = []string{"google"}
     err := shortener.AddUrl(website)
     assert.Nil(t, err)
 }

@@ -35,6 +35,7 @@ func createTable() {
         last_access date default current_date,
         hits integer default 0,
         is_visible boolean not null default true,
+        tags varchar(100)[] default null,
         constraint long_url unique(long_url),
         constraint code unique(code)
     )`
@@ -49,7 +50,7 @@ func createFunctionUpsert() {
 }
 
 func insertInitialData() {
-    insert := "insert into websites (code, long_url, title) values ($1, $2, $3)"
+    insert := "insert into websites (code, long_url, title, tags) values ($1, $2, $3, '{golang, \"postgres\"}')"
     db := database.GetDb()
     tx, _ := db.Begin()
     tx.Exec(insert, "4hd74", "http://gustavohenrique.com", "GustavoHenrique.net")

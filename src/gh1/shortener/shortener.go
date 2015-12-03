@@ -29,7 +29,13 @@ func (this Shortener) IncreaseHitsById(id int64) error {
 }
 
 func (this Shortener) AddUrl(website Website) error {
-    return this.database.AddUrl(website.LongUrl, website.Title, website.Code)
+    tags := SliceToPGArray(website.Tags)
+    return this.database.AddUrl(website.LongUrl, website.Title, website.Code, tags)
+}
+
+func (this Shortener) UpdateUrl(website Website) error {
+    tags := SliceToPGArray(website.Tags)
+    return this.database.UpdateUrl(website.Title, website.Code, tags)
 }
 
 func (this Shortener) FindAll(page int, limit int) (websites []Website, err error) {
@@ -56,5 +62,6 @@ func mapToWebsite(result map[string]interface{}) Website {
     website.LastAccess = result["LastAccess"].(time.Time)
     website.Hits = result["Hits"].(int)
     website.IsVisible = result["IsVisible"].(bool)
+    website.Tags = PGArrayToSlice(result["Tags"].(string))
     return website
 }

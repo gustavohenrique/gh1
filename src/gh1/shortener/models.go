@@ -14,6 +14,7 @@ type Website struct {
     LastAccess time.Time `json:"lastAccess" db:"last_access"`
     Hits       int       `json:"hits" db:"hits"`
     IsVisible  bool      `json:"isVisible" db:"is_visible"`
+    Tags       []string  `json:"tags"`
 }
 
 type Pagination struct {
@@ -26,7 +27,8 @@ type Pagination struct {
 type Database interface {
     GetDb() (db *sql.DB)
     Connect() error
-    AddUrl(url string, title string, code string) error
+    AddUrl(url string, title string, code string, tags string) error
+    UpdateUrl(title string, code string, tags string) error
     FindByUrl(url string) (result map[string]interface{}, err error)
     FindByCode(code string) (result map[string]interface{}, err error)
     FindAll(page int, offset int) (results []map[string]interface{}, err error)

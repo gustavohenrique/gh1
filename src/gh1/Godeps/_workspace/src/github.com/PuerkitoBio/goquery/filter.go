@@ -1,8 +1,8 @@
 package goquery
 
 import (
-	"gh1/Godeps/_workspace/src/github.com/andybalholm/cascadia"
-	"gh1/Godeps/_workspace/src/golang.org/x/net/html"
+	"github.com/andybalholm/cascadia"
+	"golang.org/x/net/html"
 )
 
 // Filter reduces the set of matched elements to those that match the selector string.

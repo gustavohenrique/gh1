@@ -1,4 +1,4 @@
-package shortener
+package validator
 
 import (
     . "github.com/smartystreets/goconvey/convey"

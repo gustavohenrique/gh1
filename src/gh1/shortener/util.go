@@ -8,6 +8,24 @@ import (
     "time"
 )
 
+func PGArrayToSlice(s string) []string {
+    if len(s) < 2 {
+        return make([]string, 0)
+    }
+    s = strings.Replace(s, "{", "", 1)
+    s = strings.Replace(s, "}", "", 1)
+    return strings.Split(s, ",")
+}
+
+func SliceToPGArray(array []string) string {
+    if len(array) == 0 {
+        return ""
+    }
+    s := strings.Join(array, ",")
+    list := []string{"{", s, "}"}
+    return strings.Join(list, "")
+}
+
 func GetEnv(key string, df string) string {
     result := os.Getenv(key)
     if result == "" {

@@ -8,7 +8,7 @@ import (
 	"strconv"
 	"strings"
 
-	"gh1/Godeps/_workspace/src/golang.org/x/net/html"
+	"golang.org/x/net/html"
 )
 
 // a parser for CSS selectors

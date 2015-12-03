@@ -1,13 +1,13 @@
 <div>
     <div class="ui top attached pointing secondary menu">
         <a tab-item id="mytab1" class="tab item active">Add</a>
-        <a tab-item id="mytab2" class="tab item">URLs</a>
+        <a tab-item id="mytab2" ng-click="vm.load()" class="tab item">URLs</a>
     </div>
 
     <div class="ui bottom attached tab segment active mytab1">
         <div class="ui fluid action labeled input">
-            <input type="text" ng-model="vm.longUrl" ng-keypress="($event.which === 13)?vm.save():0">
-            <button ng-click="vm.save()" class="ui primary button">Shorten URL</button>
+            <input type="text" ng-model="vm.longUrl" ng-keypress="($event.which === 13)?vm.create():0">
+            <button ng-click="vm.create()" class="ui primary button">Shorten URL</button>
         </div>
         <div class="ui pointing red basic label" ng-show="vm.errors.Add.hasError">
           Please enter a valid URL
@@ -38,9 +38,11 @@
                     <div class="meta">
                         <span class="right floated time">{{ item.hits }} Hits</span>
                         <span>Last access on {{ item.lastAccess | date : 'dd/MM/yyyy' }}</span>
-                    </div>
-                    <div class="description">{{ item.longUrl }}</div>
 
+                    </div>
+                    <div class="description">
+                        <tag-edit ng-repeat="t in item.tags track by $index" idx="$index" item="item" tag="t"></tag-edit>
+                    </div>
                 </div>
                 <div class="extra content">
                     <div style="text-align:center">
@@ -48,7 +50,7 @@
                     </div>
                     <div class="ui success message">
                         <div class="header" style="text-align:center">
-                            <a title="Click to visit {{ item.title }}" href="{{ vm.shortUrl }}{{ item.code }}">
+                            <a title="{{ item.longUrl }}" href="{{ vm.shortUrl }}{{ item.code }}">
                                 <h3>{{ vm.shortUrl }}{{ item.code }}</h3>
                             </a>
                         </div>
