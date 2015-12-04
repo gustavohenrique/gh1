@@ -24,24 +24,23 @@
 
     app.config(['$httpProvider', function ($httpProvider) {
         // CORS
-        //$httpProvider.interceptors.push('AuthInterceptor');
+        $httpProvider.interceptors.push('AuthInterceptor');
         $httpProvider.defaults.headers.common = {};
         $httpProvider.defaults.headers.post = {};
         $httpProvider.defaults.headers.put = {};
         $httpProvider.defaults.headers.patch = {};
     }]);
 
-    /*
     app.factory('AuthInterceptor', [function () {
         return {
             request: function (config) {
                 var token = '';
                 config.headers = config.headers || {};
-                config.headers.Authorization = 'Bearer ' + token;
+                // config.headers.Authorization = 'Bearer ' + token;
+                config.headers.origin = '*';
                 return config;
             }
         };
     }]);
-    */
 
 })(angular);

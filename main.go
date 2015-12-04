@@ -22,7 +22,12 @@ func main() {
     mux.HandleFunc("/{code}", handler.Redirect).Methods("GET")
     mux.HandleFunc("/", handler.Home).Methods("GET")
 
-    server := cors.Default().Handler(mux)
+    c := cors.New(cors.Options{
+        AllowedOrigins:   []string{"*"},
+        AllowedMethods:   []string{"GET", "POST", "PUT", "OPTIONS", "DELETE"},
+        AllowCredentials: true,
+    })
+    server := c.Handler(mux)
 
     port := GetEnv("PORT", "5000")
 
