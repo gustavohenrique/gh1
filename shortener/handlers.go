@@ -83,7 +83,7 @@ func (this ShortenerHandler) Add(w http.ResponseWriter, r *http.Request) {
     website.Code = GenerateCode()
     err = service.AddUrl(website)
     if err != nil {
-        Log.Error("Adding website "+website, err)
+        Log.Error("Adding website", website, err)
         http.Error(w, err.Error(), 500)
         json.NewEncoder(w).Encode(err)
         return
