@@ -13,8 +13,8 @@
     ]);
 
     app.constant('Constants', {
-        apiBaseUrl: 'http://localhost:5000/',
-        // apiBaseUrl: 'https://gh1.herokuapp.com/',
+        // apiBaseUrl: 'http://localhost:5000/',
+        apiBaseUrl: 'https://gh1.herokuapp.com/',
         shortenerUrl: 'http://gh1.co/',
         shortenerDomain: 'gh1.co'
     });
