@@ -16,6 +16,12 @@ func TestSliceToPGArrayShouldReturnStringInPostgresFormat(t *testing.T) {
     assert.Equal(t, "{tag1,tag2}", result)
 }
 
+func TestSliceToPGArrayShouldIgnoreEmptyString(t *testing.T) {
+    s := []string{"", "tag2"}
+    result := SliceToPGArray(s)
+    assert.Equal(t, "{tag2}", result)
+}
+
 func TestSliceToPGArrayStringShouldReturnEmptyString(t *testing.T) {
     result := SliceToPGArray(nil)
     assert.Equal(t, "", result)

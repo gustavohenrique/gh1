@@ -113,13 +113,14 @@ func (this ShortenerHandler) Update(w http.ResponseWriter, r *http.Request) {
     decoder := json.NewDecoder(r.Body)
     err := decoder.Decode(&website)
     if err != nil {
+        Log.Error("Decode request", err)
         http.Error(w, err.Error(), 400)
         return
     }
-
     service := this.getService()
     err = service.UpdateUrl(website)
     if err != nil {
+        Log.Error("Update data", err)
         http.Error(w, err.Error(), 500)
         json.NewEncoder(w).Encode(err)
         return

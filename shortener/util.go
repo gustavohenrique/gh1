@@ -21,7 +21,13 @@ func SliceToPGArray(array []string) string {
     if len(array) == 0 {
         return ""
     }
-    s := strings.Join(array, ",")
+    var result []string
+    for _, str := range array {
+        if str != "" {
+            result = append(result, str)
+        }
+    }
+    s := strings.Join(result, ",")
     list := []string{"{", s, "}"}
     return strings.Join(list, "")
 }
