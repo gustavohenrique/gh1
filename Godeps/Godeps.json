@@ -17,6 +17,10 @@
 			"Rev": "0b1c6756fe84d7fc34a1af0f6bc49bd25e40abcf"
 		},
 		{
+			"ImportPath": "github.com/carbocation/interpose",
+			"Rev": "50c09d12f8624ab10532f931cb630d0bf5f7c2c7"
+		},
+		{
 			"ImportPath": "github.com/gorilla/context",
 			"Rev": "1c83b3eabd45b6d76072b66b746c20815fb2872d"
 		},
@@ -28,18 +32,6 @@
 			"ImportPath": "github.com/lib/pq",
 			"Comment": "go1.0-cutoff-61-g83c4f41",
 			"Rev": "83c4f410d0aed80a0f44bac6a576a7f2435791f3"
-		},
-		{
-			"ImportPath": "github.com/rs/cors",
-			"Rev": "ceb1fbf238d7711a11a86a2622d0b85305348aeb"
-		},
-		{
-			"ImportPath": "github.com/rs/xhandler",
-			"Rev": "768e938dd1b2901a776cf66e27a9737d64f9e15f"
-		},
-		{
-			"ImportPath": "golang.org/x/net/context",
-			"Rev": "1d9fd3b8333e891c0e7353e1adcfe8a612573033"
 		},
 		{
 			"ImportPath": "golang.org/x/net/html",

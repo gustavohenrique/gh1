@@ -33,6 +33,14 @@ func TestValidatorUrl(t *testing.T) {
         })
     })
 
+    Convey("When an URL contains @", t, func() {
+        isValid := validator.IsUrl("https://medium.com/@alessioalionco/startups-brasileiras-go-global-3471cf5cd396#.89s53fb7m")
+
+        Convey("Should be valid", func() {
+            So(isValid, ShouldEqual, true)
+        })
+    })
+
     Convey("When an URL contains invalid character", t, func() {
         isValid := validator.IsUrl("http://^")
 

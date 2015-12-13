@@ -12,7 +12,8 @@
                 item: '=',
                 idx: '='
             },
-            template: '<span id="lbl{{ guid }}" class="ui purple basic label">{{ tag }}</span><input id="{{ guid }}" class="ui basic purple label" type="text" ng-model="tag">',
+            template: '<span id="lbl{{ guid }}" ng-show="tag" class="ui purple basic label" style="margin-bottom:3px;">{{ tag }}</span>' +
+                      '<input id="{{ guid }}" class="ui basic purple label" type="text" ng-model="tag">',
             link: function (scope, element, attrs, controller) {
                 var guid = Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
                 scope.guid = '_' + guid;
@@ -25,7 +26,7 @@
                 input.on('keydown', keydown);
                 input.on('blur', update);
 
-                var originalTag = angular.copy(scope.tag);
+                // var originalTag = angular.copy(scope.tag);
 
                 function edit () {
                     $('#_' + guid).width(label[0].offsetWidth);
@@ -44,10 +45,16 @@
                     input.addClass('hide');
                     label.removeClass('hide');
                     if (scope.tag === '') {
-                        scope.tag = originalTag;
-                        scope.$apply();
+                        scope.item.tags.pop(scope.idx);
                     }
-                    scope.item.tags[scope.idx] = scope.tag;
+                    else {
+                        if (scope.tag.length > 20) {
+                            scope.tag = scope.tag.substr(0, 20);
+                            scope.$apply();
+                        }
+
+                        scope.item.tags[scope.idx] = scope.tag;
+                    }
                     controller.update(scope.item);
                 }
 

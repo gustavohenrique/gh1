@@ -1,13 +1,13 @@
 package shortener
 
 import "database/sql"
+import "fmt"
 
 var database Database
 
 func PrepareDatabase() {
     connect()
     createTable()
-    //createFunctionUpsert()
     insertInitialData()
 }
 
@@ -35,10 +35,10 @@ func createTable() {
         last_access date default current_date,
         hits integer default 0,
         is_visible boolean not null default true,
-        tags varchar(100)[] default null,
+        tags varchar(100)[] default '{}',
         constraint long_url unique(long_url),
         constraint code unique(code)
-    )`
+    );`
     db := database.GetDb()
     db.Exec("drop table if exists websites")
     db.Exec(sql)
@@ -52,7 +52,8 @@ func createFunctionUpsert() {
 func insertInitialData() {
     insert := "insert into websites (code, long_url, title, tags) values ($1, $2, $3, '{golang, \"postgres\"}')"
     db := database.GetDb()
-    tx, _ := db.Begin()
+    tx, err := db.Begin()
+    fmt.Println("erro", err)
     tx.Exec(insert, "4hd74", "http://gustavohenrique.com", "GustavoHenrique.net")
     tx.Commit()
 }

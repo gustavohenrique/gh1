@@ -31,7 +31,7 @@ $ docker run --name some-postgres -e POSTGRES_PASSWORD=root -d postgres
 ### 3. Create database/table
 
 ```bash
-$ docker run -it --link some-postgres:postgres --rm postgres sh -c 'exec psql -h "$POSTGRES_PORT_5432_TCP_ADDR" -p "$POSTGRES_PORT_5432_TCP_PORT" -U postgres'
+$ docker run -it -P --link some-postgres:postgres --rm postgres sh -c 'exec psql -h "$POSTGRES_PORT_5432_TCP_ADDR" -p "$POSTGRES_PORT_5432_TCP_PORT" -U postgres'
 ```
 
 Inside the psql:
@@ -48,6 +48,7 @@ gh1_test=# create table websites (
 	last_access date default current_date,
 	hits integer default 0,
 	is_visible boolean not null default true,
+	tags varchar(100)[] default '{}',
 	constraint long_url unique(long_url),
 	constraint code unique(code)
 );

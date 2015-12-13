@@ -43,8 +43,7 @@ func (this *Postgres) UpdateUrl(title string, code string, tags string) error {
     if len(tags) > 0 {
         sql = strings.Replace(sql, "ARRAY", tags, 1)
     } else {
-        sql = strings.Replace(sql, ", 'ARRAY'", "", 1)
-        sql = strings.Replace(sql, ", tags", "", 1)
+        sql = strings.Replace(sql, ", tags = 'ARRAY'", "", 1)
     }
     tx, _ := this.db.Begin()
     tx.Exec(sql, title, code)

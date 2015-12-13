@@ -9,7 +9,7 @@ import (
 )
 
 func runServer() *httptest.Server {
-    handler := Handler{database}
+    handler := ShortenerHandler{Database: database}
     mux := mux.NewRouter().StrictSlash(true)
     mux.HandleFunc("/", handler.Add).Methods("POST")
     server := httptest.NewServer(mux)

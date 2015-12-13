@@ -7,6 +7,7 @@
     "angular-loading-bar": "~0.8.0",
     "semantic-ui": "~2.1.4",
     "angular-qrcode": "monospaced/angular-qrcode#~6.1.3",
-    "zeptojs": "https://raw.githubusercontent.com/components/zepto/master/zepto.min.js"
+    "zeptojs": "https://raw.githubusercontent.com/components/zepto/master/zepto.min.js",
+    "clipboard": "~1.5.5"
   }
 }

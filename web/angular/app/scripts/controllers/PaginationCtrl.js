@@ -26,8 +26,21 @@
         vm.update = update;
         vm.paginate = paginate;
         vm.load = load;
+        vm.addTagsTo = addTagsTo;
+
+        function addTagsTo (item) {
+            if (item.tags.length < 3) {
+                item.tags.push('newtag');
+            }
+        }
 
         function create () {
+            if (vm.longUrl.indexOf(Constants.shortenerDomain) >= 0) {
+                console.log('url ruim');
+                _setError('Add', {status: 400, data: 'Invalid domain.'});
+                return;
+            }
+
             vm.website = _putHttpPreffixInLongUrl(vm.longUrl);
             paginationService.create(vm.website)
                 .then(function (res) {

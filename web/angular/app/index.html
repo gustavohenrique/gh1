@@ -48,6 +48,7 @@
     <!-- build:js script.js -->
     <!-- bower:js -->
     <script src="../bower_components/zeptojs/index.js"></script>
+    <script src="../bower_components/clipboard/dist/clipboard.js"></script>
     <script src="../bower_components/angular/angular.js"></script>
     <script src="../bower_components/angular-route/angular-route.js"></script>
     <script src="../bower_components/angular-loading-bar/build/loading-bar.js"></script>
@@ -62,6 +63,9 @@
     <script src="scripts/directives/tagEdit.js"></script>
     <script src="scripts/route.js"></script>
     <script src="scripts/app.js"></script>
+    <script type="text/javascript">
+    new Clipboard('#copy');
+    </script>
     <!-- endbuild -->
   </body>
 </html>

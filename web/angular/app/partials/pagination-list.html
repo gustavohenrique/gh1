@@ -14,15 +14,20 @@
         </div>
 
         <div class="ui segments" ng-show="vm.website.shortUrl">
-            <div class="ui segment center aligned">
+            <!-- <div class="ui segment center aligned">
                 <h3>{{ vm.website.title }}</h3>
-            </div>
-            <div class="ui segment center aligned" style="background-color:#f9f9f9">
-                <qrcode version="2" error-correction-level="M" size="100" data="{{ vm.shortUrl }}{{ item.code }}" href="{{ vm.shortUrl }}{{ item.code }}"></qrcode>
+            </div> -->
+            <div class="ui segment center aligned">
+                <qrcode version="2" error-correction-level="M" size="100" data="{{ vm.website.shortUrl }}" href="{{ vm.website.shortUrl }}"></qrcode>
             </div>
             <div class="ui gray segment center aligned">
 
-                <h1><a href="{{ vm.website.shortUrl }}" title="{{ vm.website.title }}">{{ vm.website.shortUrl }}</a></h1>
+                <button id="copy" data-clipboard-target="#shortUrl" class="ui right floated compact icon basic button">
+                    <i class="copy icon"></i>
+                </button>
+                <div class="ui left floated">
+                    <input id="shortUrl" type="text" style="font-size:1.7rem;border:0" ng-model="vm.website.shortUrl" ng-readonly="true">
+                </div>
             </div>
         </div>
     </div>
@@ -42,6 +47,9 @@
                     </div>
                     <div class="description">
                         <tag-edit ng-repeat="t in item.tags track by $index" idx="$index" item="item" tag="t"></tag-edit>
+                        <button ng-click="vm.addTagsTo(item)" class="mini ui icon basic purple button right floated">
+                            <i class="plus icon"></i>
+                        </button>
                     </div>
                 </div>
                 <div class="extra content">

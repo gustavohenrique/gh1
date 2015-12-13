@@ -1,36 +1,39 @@
 package main
 
 import (
+    "gh1/Godeps/_workspace/src/github.com/carbocation/interpose"
     "gh1/Godeps/_workspace/src/github.com/gorilla/mux"
-    "gh1/Godeps/_workspace/src/github.com/rs/cors"
-    . "gh1/shortener"
+    "gh1/shortener"
     "log"
     "net/http"
 )
 
 func main() {
-    datasource := GetEnv("DATABASE_URL", "user=postgres dbname=gh1_test password=root host=docker.postgres.local sslmode=disable")
-    database := &Postgres{Datasource: datasource}
+    datasource := shortener.GetEnv("DATABASE_URL", "user=postgres dbname=gh1_test password=root host=docker.postgres.local sslmode=disable")
+    database := &shortener.Postgres{Datasource: datasource}
 
-    go database.Connect()
+    database.Connect()
 
-    handler := Handler{database}
     mux := mux.NewRouter().StrictSlash(true)
-    mux.HandleFunc("/shortener", handler.Add).Methods("POST")
-    mux.HandleFunc("/shortener", handler.Update).Methods("PUT")
-    mux.HandleFunc("/shortener", handler.Find).Methods("GET")
-    mux.HandleFunc("/{code}", handler.Redirect).Methods("GET")
-    mux.HandleFunc("/", handler.Home).Methods("GET")
 
-    c := cors.New(cors.Options{
-        AllowedOrigins:   []string{"*"},
-        AllowedMethods:   []string{"GET", "POST", "PUT", "OPTIONS", "DELETE"},
-        AllowCredentials: true,
-    })
-    server := c.Handler(mux)
+    // CORS
+    middle := interpose.New()
+    middle.UseHandler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+        w.Header().Set("Access-Control-Allow-Origin", "*")
+        w.Header().Set("Content-Type", "application/json")
+    }))
+    middle.UseHandler(mux)
 
-    port := GetEnv("PORT", "5000")
+    shortenerHandler := shortener.New(database)
+    mux.HandleFunc("/shortener", shortenerHandler.Add).Methods("POST")
+    mux.HandleFunc("/shortener", shortenerHandler.Update).Methods("PUT")
+    mux.HandleFunc("/shortener", shortenerHandler.Find).Methods("GET")
+    mux.HandleFunc("/shortener", shortenerHandler.Preflight).Methods("OPTIONS")
+    mux.HandleFunc("/{code}", shortenerHandler.Redirect).Methods("GET")
+    mux.HandleFunc("/", shortenerHandler.Home).Methods("GET")
+
+    port := shortener.GetEnv("PORT", "5000")
 
     log.Println("Server has been started on port " + port)
-    log.Fatal(http.ListenAndServe(":"+port, server))
+    log.Fatal(http.ListenAndServe(":"+port, middle))
 }
