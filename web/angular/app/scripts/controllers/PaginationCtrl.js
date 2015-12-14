@@ -36,7 +36,6 @@
 
         function create () {
             if (vm.longUrl.indexOf(Constants.shortenerDomain) >= 0) {
-                console.log('url ruim');
                 _setError('Add', {status: 400, data: 'Invalid domain.'});
                 return;
             }
@@ -65,7 +64,6 @@
             }
             paginationService.search(perPage, pageNumber)
                 .then(function (res) {
-                    console.log('response erro', res);
                     paginationData.items = res.data.content;
                     _setError('Find', res);
                 })
