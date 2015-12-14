@@ -65,6 +65,7 @@
             }
             paginationService.search(perPage, pageNumber)
                 .then(function (res) {
+                    console.log('response erro', res);
                     paginationData.items = res.data.content;
                     _setError('Find', res);
                 })
@@ -93,7 +94,7 @@
         function _setError(key, res) {
             var status = res.status;
             var hasError = false;
-            if (status >= 400) {
+            if (status >= 400 || status === -1) {
                 hasError = true;
             }
             vm.errors = {};

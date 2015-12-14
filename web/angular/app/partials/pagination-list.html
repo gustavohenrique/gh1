@@ -66,8 +66,19 @@
                 </div>
             </div>
         </div>
-        <div class="ui header centered align"  ng-hide="vm.errors.Find.hasError">
+        <div class="ui header centered align" ng-hide="vm.errors.Find.hasError">
             <pagination rows="10"/>
+        </div>
+    </div>
+    <div class="ui header centered align" ng-show="vm.errors.Find.hasError">
+        <div class="ui error message">
+            <div class="header">
+                There was some errors.
+            </div>
+            <ul class="list">
+                <li ng-show="vm.errors.Find.status == 404">No results found.</li>
+                <li ng-show="vm.errors.Find.status == -1">The Heroku's dyno was idle.</li>
+            </ul>
         </div>
     </div>
 
