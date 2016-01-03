@@ -54,6 +54,12 @@ gh1_test=# create table websites (
 );
 ```
 
+## Running on Docker
+
+```
+docker run -d --name gh1 -e 'DATABASE_URL=user=gh1 dbname=gh1 password=root host=postgres.docker sslmode=disable' -e 'PORT=8002' -p 8002:8002 -v "$PWD":/usr/lib/go/src/gh1 gh1
+```
+
 ## License
 
 MIT

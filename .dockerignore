@@ -1,0 +1,12 @@
+Godeps
+Makefile
+Procfile
+README.md
+app.json
+crawler
+logger
+main.go
+shortener
+src
+validator
+web
