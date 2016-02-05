@@ -1,0 +1,94 @@
+.card {
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 20px;
+    background-color: #FFF;
+    box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.16), 0 1px 2px 0 rgba(0, 0, 0, 0.12);
+    text-decoration: none;
+    color: rgb(115, 115, 115);
+    height: 385px;
+}
+
+.card > .card-header {
+    font-weight: 700;
+    height: 75px;
+    font-size: 1.28571429em;
+    overflow: hidden;
+}
+
+.card > .card-content {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    position: inherit;
+}
+
+.card > .card-content > .card-title {
+    display: block;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-size: 22px;
+}
+
+.right.floated {
+    float: right;
+}
+
+.card > .card-content > .card-meta {
+    margin-top: -8px;
+    font-size: 1em;
+    color: rgba(0,0,0,.4)
+}
+
+.card > .card-content > .card-tags {
+    height: 30px;
+}
+
+.tag.label.label-info {
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+.tag.btn {
+    margin: 0;
+}
+
+.card > .card-action {
+    min-height: 30px;
+}
+
+/*
+ * Pattern social media tool component
+ */
+.card > .card-action > .tools {
+    padding: 0;
+    float: left;
+}
+
+.card > .card-action > .tools li {
+    display: inline;
+    color: #777;
+}
+
+.card > .card-action > .tools li a {
+    text-decoration: none;
+    color: #777;
+}
+
+.card > .card-action > .tools li a,
+.card > .card-action > .tools li span {
+    padding-right: 5px;
+    word-spacing: -10px;
+}
+
+.card-qrcode {
+    text-align: center;
+}
+
+.card-link {
+    text-align: center;
+    font-size: 14pt;
+    font-weight: 400;
+    margin-top: 20px;
+    margin-bottom: 0;
+}

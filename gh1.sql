@@ -1,11 +1,9 @@
 DO
 $body$
 BEGIN
-   IF NOT EXISTS (
-      SELECT *
-      FROM   pg_catalog.pg_user
-      WHERE  usename = 'gh1') THEN
-      CREATE ROLE gh1 LOGIN PASSWORD 'gh1';
+   IF NOT EXISTS (SELECT * FROM pg_catalog.pg_user WHERE  usename = 'gh1') THEN
+      CREATE USER gh1 WITH PASSWORD 'gh1';
+      GRANT usage on schema public to gh1;
    END IF;
 END
 $body$;
