@@ -2,6 +2,7 @@
 .sass-cache
 .DS_Store
 *.log
+*.dump
 *~
 node_modules
 dist
@@ -23,3 +24,4 @@ package.json
 server
 tests
 src
+web
