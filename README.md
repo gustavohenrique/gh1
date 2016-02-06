@@ -15,7 +15,11 @@ If you have tips or advices to improve my code please, share with me.
 
 I developed 2 distinct UI. The first uses AngularJS + Semantic-UI and the second React + Redux + Bootstrap/Material Design Theme.
 
+### AngularJS + Semantic-UI
+
 ![AngularJS](angularjs.png)
+
+### React + Redux + Bootstrap with Material theme
 
 ![React](react.png)
 
