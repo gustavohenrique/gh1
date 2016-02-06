@@ -4,6 +4,7 @@
 // generated on 2015-05-29 using generator-gulp-angular-semantic-ui 0.5.0
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
+var concat = require('gulp-concat');
 
 gulp.task('styles', function () {
   return gulp.src('app/styles/main.css')
@@ -22,12 +23,23 @@ gulp.task('jshint', function () {
     .pipe($.jshint.reporter('fail'));
 });
 
+gulp.task('partials', function () {
+  gulp.src([
+      'app/partials/**/*.html'
+    ])
+    .pipe($.angularTemplatecache('partials.js', {
+      module: 'MainApp',
+      root: 'partials/'
+    }))
+    .pipe(gulp.dest('.tmp'));
+});
+
 gulp.task('html', ['styles', 'semantic'], function () {
   var assets = $.useref.assets({searchPath: ['.tmp', 'app', '.']});
 
   return gulp.src('app/**/*.html')
     .pipe(assets)
-    .pipe($.if('*.js', $.uglify()))
+    //.pipe($.if('*.js', $.uglify()))
     .pipe($.if('*.css', $.csso()))
     .pipe(assets.restore())
     .pipe($.useref())
@@ -73,7 +85,7 @@ gulp.task('e2e', function () {
       .on('error', function(e) { throw e })
 });
 
-gulp.task('clean', require('del').bind(null, ['.tmp', 'dist']));
+gulp.task('clean', require('del').bind(null, ['.tmp', 'dist'], {force: true}));
 
 gulp.task('connect', ['styles', 'fonts'], function () {
   var serveStatic = require('serve-static');
@@ -109,9 +121,12 @@ gulp.task('watch', ['connect'], function () {
   gulp.watch('bower.json', ['wiredep', 'fonts']);
 });
 
-gulp.task('build', ['jshint', 'html', 'images', 'fonts', 'extras'], function () {
-  return gulp.src('dist/**/*').pipe($.size({title: 'build', gzip: true}));
+gulp.task('build', ['partials', 'jshint', 'html', 'images', 'fonts', 'extras'], function () {
+  return gulp.src('dist/**/*')
+  .pipe($.size({title: 'build', gzip: true}));
 });
+
+
 
 gulp.task('default', ['clean'], function () {
   gulp.start('build');

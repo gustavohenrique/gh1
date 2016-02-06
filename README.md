@@ -11,6 +11,14 @@ In this first version I learned about:
 
 If you have tips or advices to improve my code please, share with me.
 
+## Screenshots
+
+I developed 2 distinct UI. The first uses AngularJS + Semantic-UI and the second React + Redux + Bootstrap/Material Design Theme.
+
+![AngularJS](angularjs.png)
+
+![React](react.png)
+
 ## Dev Environment
 
 ### 1. Setup Go environment
