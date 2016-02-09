@@ -45,7 +45,7 @@ gulp.task('pre-build', ['compile-scripts', 'copy-html', 'styles'], function() {
 });
 
 gulp.task('fonts', function () {
-    return gulp.src('node_modules/bootstrap/fonts/*.{eot,svg,ttf,woff,woff2}')
+    return gulp.src('node_modules/bootstrap-material-design/node_modules/bootstrap/fonts/*.{eot,svg,ttf,woff,woff2}')
         .pipe(gulp.dest('dist/fonts'));
 });
 

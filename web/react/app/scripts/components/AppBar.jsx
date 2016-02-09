@@ -1,3 +1,4 @@
+import React from 'react';
 import { Link } from 'react-router';
 
 
@@ -21,6 +22,6 @@ export default class AppBar extends React.Component {
                     </ul>
                 </div>
             </nav>
-        )
+        );
     }
 }

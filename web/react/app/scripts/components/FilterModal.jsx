@@ -1,7 +1,9 @@
+import React, { PropTypes } from 'react';
+
 export default class FilterModal extends React.Component {
     render () {
         return (
-            <div id="filterModal" className="modal" tabindex="-1" role="dialog" aria-labelledby="filterModalLabel">
+            <div id="filterModal" className="modal" tabIndex="-1" role="dialog" aria-labelledby="filterModalLabel">
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
                         <div className="modal-header">
@@ -18,6 +20,6 @@ export default class FilterModal extends React.Component {
                     </div>
                 </div>
             </div>
-        )
+        );
     }
 }

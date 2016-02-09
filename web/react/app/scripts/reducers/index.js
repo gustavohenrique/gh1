@@ -1,3 +1,5 @@
+import * as types from '../constants';
+
 const initialState = {
     isFetching: false,
     isWaitingRequest: false,
@@ -18,69 +20,69 @@ export function paginate (state = initialState, action) {
             ...state,
             isFetching: false,
             isWaitingRequest: false
-        }
+        };
     }
 
     switch (action.type) {
-        case 'REQUEST_START':
+        case types.REQUEST_START:
             let isWaiting = action.hasOwnProperty('isWaitingRequest') ? action.isWaitingRequest : false;
             return {
                 ...state,
                 isWaitingRequest: isWaiting,
                 isFetching: true
-            }
+            };
 
-        case 'FILTER_SITES_SUCCESS':
+        case types.FILTER_SITES_SUCCESS:
             return {
                 ...markAsFinishedRequest(state),
                 sites: action.sites,
                 site: null,
                 pagination: Object.assign({}, state.pagination, action.pagination)
-            }
+            };
 
-        case 'SET_PREVIOUS_PAGE':
+        case types.SET_PREVIOUS_PAGE:
             const previousPage = state.pagination.previous;
             return {
                 ...state,
                 pagination: Object.assign({}, state.pagination, { page: previousPage })
-            }
+            };
 
-        case 'SET_NEXT_PAGE':
+        case types.SET_NEXT_PAGE:
             const nextPage = state.pagination.next;
             return {
                 ...state,
                 pagination: Object.assign({}, state.pagination, { page: nextPage })
-            }
+            };
 
-        case 'SET_REFRESH_LIST':
+        case types.SET_REFRESH_LIST:
             return {
                 ...state,
                 pagination: Object.assign({}, state.pagination, { page: 1 })
-            }
+            };
 
-        case 'SET_SITE':
+        case types.SET_SITE:
             return {
                 ...state,
                 site: action.site,
                 siteIndex: action.siteIndex
-            }
+            };
 
-        case 'SITE_ADDED':
+        case types.SITE_ADDED:
             return {
                 ...markAsFinishedRequest(state),
                 site: action.site
-            }
+            };
 
-        case 'TAG_ADDED':
-        case 'TAG_REMOVED':
-            let sites = state.sites.slice(0)
-            sites[action.siteIndex] = action.site
+        case types.TAG_ADDED:
+        case types.TAG_REMOVED:
+            let sites = state.sites.slice(0);
+            sites[action.siteIndex] = action.site;
             return {
                 ...markAsFinishedRequest(state),
                 sites: sites
-            }
+            };
         
         default:
-            return state
+            return state;
     }
 }

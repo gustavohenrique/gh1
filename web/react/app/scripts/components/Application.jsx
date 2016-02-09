@@ -1,5 +1,6 @@
-import AppBar from './AppBar.jsx'
-import LoadingBar from './LoadingBar.jsx'
+import React, { PropTypes } from 'react';
+import AppBar from './AppBar.jsx';
+import LoadingBar from './LoadingBar.jsx';
 
 
 export default class Application extends React.Component {
@@ -12,6 +13,10 @@ export default class Application extends React.Component {
                     {this.props.children}
                 </div>
             </div>
-        )
+        );
     }
 }
+
+Application.propTypes = {
+    children: PropTypes.node.isRequired
+};

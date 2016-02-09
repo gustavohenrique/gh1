@@ -1,15 +1,17 @@
-import QRCode from 'qrcode.react'
-import TagContainer from './TagContainer.jsx'
-import { convertDate } from '../util'
+import React, { PropTypes } from 'react';
+import QRCode from 'qrcode.react';
+import TagContainer from './TagContainer.jsx';
+import { convertDate } from '../util';
+import { BASE_SHORTEN_URL } from '../constants';
 
 export default class SiteItem extends React.Component {
 
     render () {
         function getShortenUrl (code) {
-            return 'http://gh1.co/' + code;
+            return BASE_SHORTEN_URL + code;
         }
 
-        const { site, siteIndex } = this.props
+        const { site, siteIndex } = this.props;
 
         return (
             <div className="col-sm-4">
@@ -42,6 +44,11 @@ export default class SiteItem extends React.Component {
                     </div>
                 </div>
             </div>
-        )
+        );
     }
 }
+
+SiteItem.propTypes = {
+    site: PropTypes.object.isRequired,
+    siteIndex: PropTypes.number.isRequired
+};

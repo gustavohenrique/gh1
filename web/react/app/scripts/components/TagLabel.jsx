@@ -1,16 +1,21 @@
-import { connect } from 'react-redux'
-
-import { removeTag } from '../actions'
+import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { removeTag } from '../actions';
 
 class TagLabel extends React.Component {
 
     render () {
-        const { tag } = this.props
+        const { tag } = this.props;
         return (
             <a title="Double click to remove" onDoubleClick={this.props.removeTag} className="tag label label-info">{tag}</a>
-        )
+        );
     }
 }
+
+TagLabel.propTypes = {
+    tag: PropTypes.string.isRequired,
+    removeTag: PropTypes.func.isRequired
+};
 
 function mapDispatchToProps (dispatch, ownProps) {
     return {
@@ -20,10 +25,10 @@ function mapDispatchToProps (dispatch, ownProps) {
                 siteIndex: ownProps.siteIndex,
                 tag: ownProps.tag,
                 index: ownProps.index
-            }
-            dispatch(removeTag(params))
+            };
+            dispatch(removeTag(params));
         }
-    }
+    };
 }
 
-export default connect(null, mapDispatchToProps)(TagLabel)
+export default connect(null, mapDispatchToProps)(TagLabel);
