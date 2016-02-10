@@ -1,6 +1,0 @@
-jspm_packages
-node_modules
-dist
-.DS_Store
-.tmp
-*.log

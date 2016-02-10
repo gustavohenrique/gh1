@@ -17,11 +17,11 @@ I developed 2 distinct UI. The first uses AngularJS + Semantic-UI and the second
 
 ### AngularJS + Semantic-UI
 
-![AngularJS](angularjs.png)
+![AngularJS](screenshots/angularjs.png)
 
 ### React + Redux + Bootstrap with Material theme
 
-![React](react.png)
+![React](screenshots/react.png)
 
 ## Dev Environment
 
