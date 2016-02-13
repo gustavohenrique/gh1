@@ -12,10 +12,10 @@ var validUrl = require('valid-url');
 
             var fields = req.params.fields;
             if (fields) {
-                query.attributes = fields.split(',')
+                query.attributes = fields.split(',');
             }
 
-            var perPage = req.params.per_page || 10;
+            var perPage = req.params.perPage || 10;
             if (perPage > 0) {
                 query.limit = perPage;
             }

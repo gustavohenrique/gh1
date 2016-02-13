@@ -12,23 +12,24 @@ var services = createServices(models);
 var DEFAULT_URL = process.env.GH1_DEFAULT_URL || 'https://gustavohenrique.github.io/gh1';
 
 
-function createServer () {
+function createServer() {
     var siteService = services.Site;
 
     var server = restify.createServer({ name: 'GH1' });
-    
-    server.use(restify.fullResponse())
-          .use(restify.bodyParser())
-          .use(restify.CORS())
-          .use(restify.gzipResponse())
-          .use(restify.queryParser())
-          .use(restify.throttle({
-              burst: 100,
-              rate: 50,
-              ip: true
-          }));
+    server
+        .use(restify.fullResponse())
+        .use(restify.bodyParser())
+        .use(restify.CORS())
+        .use(restify.gzipResponse())
+        .use(restify.queryParser())
+        .use(restify.throttle({
+            burst: 100,
+            rate: 50,
+            ip: true
+        }));
 
-    route.use(server)
+    route
+        .use(server)
         .set('/sites', 'get', siteService.find)
         .set('/sites', 'post', siteService.create)
         .set('/sites/:id', 'put', siteService.update)

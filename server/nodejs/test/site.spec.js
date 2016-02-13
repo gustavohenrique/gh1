@@ -54,7 +54,7 @@ describe('Site API', function() {
         });
 
         it('should paginates the result', function (done) {
-            client.get('/sites?page=2&per_page=2').end(function (err, res) {
+            client.get('/sites?page=2&perPage=2').end(function (err, res) {
                 expect(res.status).to.equal(200);
                 expect(res.body.sites).to.have.length(2);
 
@@ -64,8 +64,8 @@ describe('Site API', function() {
             });
         });
 
-        it('should ignore the pagination if page or per_page are not numbers', function (done) {
-            client.get('/sites?page=a&per_page=b').end(function (err, res) {
+        it('should ignore the pagination if page or perPage are not numbers', function (done) {
+            client.get('/sites?page=a&perPage=b').end(function (err, res) {
                 expect(res.status).to.equal(200);
                 expect(res.body.sites).to.have.length(10);
                 done();

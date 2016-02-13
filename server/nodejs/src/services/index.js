@@ -6,7 +6,7 @@ var SiteService = require('./SiteService');
     function createServices (models) {
         return {
             Site: new SiteService(models)
-        }
+        };
     }
 
     module.exports = createServices;
