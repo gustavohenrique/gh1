@@ -1,0 +1,8 @@
+{
+  "name": "GH1 Url Shortener",
+  "description": "An URL Shortener written in Node.js using Express 4",
+  "repository": "https://github.com/gustavohenrique/gh1",
+  "logo": "http://node-js-sample.herokuapp.com/node.svg",
+  "keywords": ["node", "express"],
+  "image": "heroku/nodejs"
+}

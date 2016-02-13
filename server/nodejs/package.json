@@ -1,0 +1,39 @@
+{
+  "name": "gh1",
+  "version": "0.0.1",
+  "description": "A simple URL shortener",
+  "main": "index.js",
+  "scripts": {
+    "start": "DATABASE_URL='postgres://gh1:gh1@192.168.99.100:5432/gh1' nodemon index.js",
+    "test": "DATABASE_URL='postgres://gh1_test:gh1_test@192.168.99.100:5434/gh1_test' mocha --recursive -R spec test",
+    "start:db": "docker run --name gh1db -p 5432:5432 -e POSTGRES_USER=gh1 -e POSTGRES_PASSWORD=gh1 -d postgres:9.5",
+    "start:dbtest": "docker run --name gh1dbtest -p 5434:5432 -e POSTGRES_USER=gh1_test -e POSTGRES_PASSWORD=gh1_test -d postgres:9.5",
+    "psql": "docker run -it -e PGPASSWORD=gh1_test --link gh1dbtest:postgres --rm postgres:9.5 sh -c 'exec psql -h $POSTGRES_PORT_5432_TCP_ADDR -p $POSTGRES_PORT_5432_TCP_PORT -U gh1_test'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gustavohenrique/gh1.git"
+  },
+  "keywords": [
+    "express"
+  ],
+  "engines": {
+    "node": "0.12.7"
+  },
+  "author": "Gustavo Henrique",
+  "license": "MIT",
+  "dependencies": {
+    "pg": "^4.4.4",
+    "restify": "^4.0.4",
+    "restify-route": "0.0.3",
+    "sequelize": "^3.19.2",
+    "valid-url": "^1.0.9"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "faker": "^3.0.1",
+    "mocha": "^2.4.5",
+    "sequelize-fixtures": "^0.4.8",
+    "supertest": "^1.2.0"
+  }
+}
