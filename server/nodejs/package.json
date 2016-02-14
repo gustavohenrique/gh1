@@ -3,10 +3,18 @@
   "version": "0.0.1",
   "description": "A simple URL shortener",
   "main": "index.js",
+  "config": {
+    "DATABASE_TEST": "postgres://gh1_test:gh1_test@192.168.99.100:5434/gh1_test"
+  },
+  "database": {
+    "dev": "postgres://gh1:gh1@192.168.99.100:5432/gh1",
+    "test": "postgres://gh1_test:gh1_test@192.168.99.100:5434/gh1_test"
+  },
   "scripts": {
-    "start": "DATABASE_URL='postgres://gh1:gh1@192.168.99.100:5432/gh1' nodemon index.js",
-    "test": "DATABASE_URL='postgres://gh1_test:gh1_test@192.168.99.100:5434/gh1_test' mocha --recursive -R spec",
+    "start": "DATABASE_URL=$npm_package_database_dev nodemon index.js",
+    "test": "DATABASE_URL=$npm_package_database_test mocha --recursive -R spec",
     "test:xunit": "npm run test -- --reporter xunit",
+    "coverage": "DATABASE_URL=$npm_package_database_test ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- -R spec; exit 0",
     "lint": "./node_modules/.bin/jshint ./src/**/*.js; exit 0",
     "start:db": "docker run --name gh1db -p 5432:5432 -e POSTGRES_USER=gh1 -e POSTGRES_PASSWORD=gh1 -d postgres:9.5",
     "start:dbtest": "docker run --name gh1dbtest -p 5434:5432 -e POSTGRES_USER=gh1_test -e POSTGRES_PASSWORD=gh1_test -d postgres:9.5",
@@ -36,6 +44,7 @@
   "devDependencies": {
     "chai": "^3.5.0",
     "faker": "^3.0.1",
+    "istanbul": "^0.4.2",
     "jshint": "^2.9.1",
     "mocha": "^2.4.5",
     "sequelize-fixtures": "^0.4.8",

@@ -6,6 +6,7 @@
 *~
 node_modules
 dist
+coverage
 bower_components
 test/bower_components
 bin
