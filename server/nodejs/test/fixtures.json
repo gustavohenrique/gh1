@@ -1,4 +1,11 @@
 [{
+    "model": "User",
+    "data": {
+        "id": 10,
+        "email": "iam@gustavohenrique.com",
+        "password": "password123"
+    }
+}, {
     "model": "Site",
     "data": {
         "title": "22 Essential CSS Recipes",
@@ -6,7 +13,8 @@
         "code": "r733t",
         "hits": 1,
         "likes": 1,
-        "tags": ["developer", "design", "css"]
+        "tags": ["developer", "design", "css"],
+        "user": 10
     }
 }, {
     "model": "Site",
@@ -26,7 +34,8 @@
         "code": "qhh62",
         "hits": 1,
         "likes": 1,
-        "tags": ["python", "boto", "aws"]
+        "tags": ["python", "boto", "aws"],
+        "user": 10
     }
 }, {
     "model": "Site",
@@ -86,7 +95,9 @@
         "code": "s1x1g",
         "hits": 6,
         "likes": 1,
-        "tags": ["developer", "sql", "postgres"]
+        "tags": ["developer", "sql", "postgres"],
+        "user": 10,
+        "isPublic": false
     }
 }, {
     "model": "Site",
@@ -95,6 +106,8 @@
         "longUrl": "http://techblog.netflix.com/2015/11/linux-performance-analysis-in-60s.html",
         "code": "wtlyb",
         "hits": 2,
-        "likes": 1
+        "likes": 1,
+        "user": 10,
+        "isPublic": false
     }
 }]

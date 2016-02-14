@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "DATABASE_URL='postgres://gh1:gh1@192.168.99.100:5432/gh1' nodemon index.js",
-    "test": "DATABASE_URL='postgres://gh1_test:gh1_test@192.168.99.100:5434/gh1_test' mocha --recursive -R spec test",
+    "test": "DATABASE_URL='postgres://gh1_test:gh1_test@192.168.99.100:5434/gh1_test' mocha --recursive -R spec",
     "test:xunit": "npm run test -- --reporter xunit",
     "lint": "./node_modules/.bin/jshint ./src/**/*.js; exit 0",
     "start:db": "docker run --name gh1db -p 5432:5432 -e POSTGRES_USER=gh1 -e POSTGRES_PASSWORD=gh1 -d postgres:9.5",
@@ -25,9 +25,11 @@
   "author": "Gustavo Henrique",
   "license": "MIT",
   "dependencies": {
+    "bcrypt": "^0.8.5",
+    "jsonwebtoken": "^5.5.4",
     "pg": "^4.4.4",
     "restify": "^4.0.4",
-    "restify-route": "0.0.3",
+    "restify-route": "0.0.5",
     "sequelize": "^3.19.2",
     "valid-url": "^1.0.9"
   },

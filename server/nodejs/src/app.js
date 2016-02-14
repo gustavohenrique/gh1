@@ -1,4 +1,5 @@
 var restify = require('restify');
+var jwt = require('jsonwebtoken');
 var route = require('restify-route');
 var Sequelize = require('sequelize');
 var createModels = require('./models');
@@ -10,10 +11,11 @@ var models = createModels(db, Sequelize);
 var services = createServices(models);
 
 var DEFAULT_URL = process.env.GH1_DEFAULT_URL || 'https://gustavohenrique.github.io/gh1';
-
+var JWT_SECRET = 'secret';
 
 function createServer() {
     var siteService = services.Site;
+    var userService = services.User;
 
     var server = restify.createServer({ name: 'GH1' });
     server
@@ -30,11 +32,29 @@ function createServer() {
 
     route
         .use(server)
-        .set('/sites', 'get', siteService.find)
-        .set('/sites', 'post', siteService.create)
-        .set('/sites/:id', 'put', siteService.update)
-        .set('/sites/:id', 'del', siteService.destroy)
-        .set('/:code', 'get', function (req, res, next) {
+        .jwt({
+            secretOrPrivateKey: JWT_SECRET,
+            allwaysVerifyAuthentication: false,
+            callback: function (req, next, decoded) {
+                if (decoded) {
+                    req.user = decoded;
+                    next();
+                }
+                else {
+                    next(new restify.NotAuthorizedError('Invalid token.'));
+                }
+            }
+        })
+
+        .set('/users/authenticate', 'POST', authenticate)
+        .set('/users', 'POST', userService.create)
+
+        .set('/sites', 'GET', siteService.find)
+        .set('/sites', 'POST', siteService.create)
+        .set('/sites/:id', 'PUT', siteService.update, true)
+        .set('/sites/:id', 'DEL', siteService.destroy)
+
+        .set('/:code', 'GET', function (req, res, next) {
             if (req.params.code) {
                 siteService.redirect(req, res, next);
             }
@@ -42,6 +62,19 @@ function createServer() {
                 res.redirect(301, DEFAULT_URL, next);
             }
         });
+
+    function authenticate (req, res, next) {
+        userService.authenticate(req, res, next).then(function () {
+            var token = jwt.sign({
+                id: req.user.id,
+                email: req.user.email
+            }, JWT_SECRET);
+            res.send({
+                user: req.user,
+                token: token
+            });
+        });
+    }
 
     return server;
 }

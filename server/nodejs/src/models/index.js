@@ -1,25 +1,26 @@
-// var User = require('./User');
-var SiteModel = require('./Site');
+var User = require('./User');
+var Site = require('./Site');
 
 (function () {
 
     function createModels (db, Sequelize) {
-        var self = this;
-        // this.User = new User({
-        //     db: db,
-        //     Sequelize: Sequelize,
-        //     models: this
-        // });
-
-        self.Site = new SiteModel({
+        this.User = new User({
             db: db,
             Sequelize: Sequelize
         });
 
-        // this.User.sync();
-        self.Site.sync();
+        this.Site = new Site({
+            db: db,
+            Sequelize: Sequelize
+        });
 
-        return self;
+        this.User.hasMany(this.Site, {as: 'sites'});
+        this.Site.belongsTo(this.User, {throught: 'usersites'});
+
+        this.User.sync();
+        this.Site.sync();
+
+        return this;
 
     }
 

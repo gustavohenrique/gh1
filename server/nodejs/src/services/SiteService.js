@@ -5,9 +5,11 @@ var validUrl = require('valid-url');
     function SiteService (models) {
 
         this.find = function (req, res) {
-            var query = { order: [
+            var query = {
+                order: [
                     ['id', 'ASC']
-                ]
+                ],
+                where: {isPublic: true}
             };
 
             var fields = req.params.fields;
@@ -35,11 +37,14 @@ var validUrl = require('valid-url');
 
             var tag = req.params.tag;
             if (tag) {
-                query.where = {
-                    tags: {
-                        $contains: [ tag ]
-                    }
+                query.where.tags = {
+                    $contains: [ tag ]
                 };
+            }
+
+            var user = req.user;
+            if (user && user.id) {
+                delete query.where.isPublic;
             }
 
             models.Site.findAll(query).then(function (sites) {
