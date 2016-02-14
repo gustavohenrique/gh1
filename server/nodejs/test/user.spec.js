@@ -3,7 +3,7 @@ var request = require('supertest');
 var fixtures = require('sequelize-fixtures');
 var app = require('../src/app');
 
-describe('Site API', function() {
+describe('User and Authentication API', function() {
 
     var client = null;
     var models = app.models;
@@ -67,6 +67,32 @@ describe('Site API', function() {
                     expect(res.body.token).to.have.length(161);
                     done();
                 });
+        });
+
+        it('should not authenticate the user when using wrong password', function (done) {
+            var fake = {
+                email: 'iam@gustavohenrique.com',
+                password: 'wrong here'
+            };
+
+            client
+                .post('/users/authenticate')
+                .set('Accept', 'application/json')
+                .send(fake)
+                .expect(403, done);
+        });
+
+        it('should not authenticate the user when email does not exists', function (done) {
+            var fake = {
+                email: 'not@found.com',
+                password: 'password123'
+            };
+
+            client
+                .post('/users/authenticate')
+                .set('Accept', 'application/json')
+                .send(fake)
+                .expect(403, done);
         });
     });
 

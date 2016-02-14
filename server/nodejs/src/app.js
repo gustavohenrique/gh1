@@ -65,14 +65,11 @@ function createServer() {
 
     function authenticate (req, res, next) {
         userService.authenticate(req, res, next).then(function () {
-            var token = jwt.sign({
-                id: req.user.id,
-                email: req.user.email
-            }, JWT_SECRET);
-            res.send({
-                user: req.user,
-                token: token
-            });
+            if (res.statusCode === 200) {
+                var token = jwt.sign({ id: req.user.id, email: req.user.email }, JWT_SECRET);
+                res.send({ user: req.user, token: token });
+            }
+            next();
         });
     }
 

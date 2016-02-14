@@ -46,13 +46,13 @@
                     next();
                 }
                 else {
-                    res.send(400, {
+                    res.send(403, {
                         errors: ['wrong password']
                     });
                 }
             })
             .catch(function (err) {
-                res.send(400, {
+                res.send(403, {
                     errors: [err.message]
                 });
             });
