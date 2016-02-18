@@ -114,6 +114,7 @@ describe('Site API', function() {
                     expect(res.status).to.equal(201);
                     var site = res.body.site;
                     expect(site.code).to.have.length(5);
+                    expect(site.userId).to.equal(null);
                     done();
                 });
         });
@@ -140,6 +141,43 @@ describe('Site API', function() {
                 .send(fake)
                 .expect(400)
                 .end(done);
+        });
+
+        it('creates and returns a valid site with an user', function (done) {
+            var fake = { longUrl: 'http://uniqueurl.com', userId: 10 };
+            client
+                .post('/sites')
+                .set('Accept', 'application/json')
+                .send(fake)
+                .end(function (err, res) {
+                    expect(res.status).to.equal(201);
+                    var site = res.body.site;
+                    expect(site.code).to.have.length(5);
+                    expect(site.userId).to.equal(10);
+                    done();
+                });
+        });
+
+        it('should not creates site when user does not exists', function (done) {
+            var fake = { longUrl: 'http://uniqueurl.com', userId: 9999 };
+            client
+                .post('/sites')
+                .set('Accept', 'application/json')
+                .send(fake)
+                .expect(400, done);
+        });
+
+        it('should creates site when user has an invalid id', function (done) {
+            var fake = { longUrl: 'http://uniqueurl.com', userId: 'aaaa' };
+            client
+                .post('/sites')
+                .set('Accept', 'application/json')
+                .send(fake)
+                .end(function (err, res) {
+                    expect(res.status).to.equal(201);
+                    expect(res.body.site.userId).to.equal(null);
+                    done();
+                });
         });
         
     });

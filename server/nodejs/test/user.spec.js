@@ -82,6 +82,29 @@ describe('User and Authentication API', function() {
                 .expect(403, done);
         });
 
+        it('should not authenticate if email is not defined', function (done) {
+            var fake = {
+                email: '',
+                password: 'wrong here'
+            };
+
+            client
+                .post('/users/authenticate')
+                .send(fake)
+                .expect(403, done);
+        });
+
+        it('should not authenticate if password123 is not defined', function (done) {
+            var fake = {
+                email: 'iam@gustavohenrique.com'
+            };
+
+            client
+                .post('/users/authenticate')
+                .send(fake)
+                .expect(403, done);
+        });
+
         it('should not authenticate the user when email does not exists', function (done) {
             var fake = {
                 email: 'not@found.com',

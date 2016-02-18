@@ -49,7 +49,10 @@ var validUrl = require('valid-url');
 
             models.Site.findAll(query).then(function (sites) {
                 res.send({
-                    sites: sites
+                    sites: sites,
+                    current: page,
+                    previous: (page <= 1) ? 1 : page - 1,
+                    next: page + 1
                 });
             })
             .catch(function (err) {
@@ -88,17 +91,32 @@ var validUrl = require('valid-url');
 
             var code = Math.random().toString(36).substr(2, 5);
 
-            models.Site.findOrCreate({
-                where: { longUrl: longUrl },
-                defaults: {
-                    longUrl: longUrl,
-                    code: code
-                }
+            var status = 200;
+
+            models.Site.findOne({
+                where: { longUrl: longUrl }
             })
             .then(function (result) {
-                var status = result[0].$options.isNewRecord ? 201 : 200;
+                if (! result) {
+                    return models.Site.create({
+                        longUrl: longUrl,
+                        code: code
+                    });
+                }
+                return result;
+            })
+            .then(function (site) {
+                status = site.$options.isNewRecord ? 201 : 200;
+
+                var userId = body.userId;
+                if (userId > 0) {
+                    return site.setUser(userId);
+                }
+                return site;
+            })
+            .then(function (site) {
                 res.send(status, {
-                    site: result[0].dataValues
+                    site: site.toJSON()
                 });
             })
             .catch(function (err) {
@@ -119,21 +137,23 @@ var validUrl = require('valid-url');
 
             var body = req.body;
 
-            models.Site.update({
+            var fields = {
                 title: body.title,
                 hits: body.hits,
                 likes: body.likes,
                 isPublic: body.isPublic,
                 tags: body.tags
-            }, {
-                fields: ['title', 'hits', 'likes', 'isPublic', 'tags'],
+            };
+
+            models.Site.update(fields, {
+                fields: Object.keys(fields),
                 where: {
                     id: id
                 },
                 returning: true
             })
             .then(function (result) {
-                return result[1][0].dataValues;
+                return result[1][0].toJSON();
             })
             .then(function (site) {
                 res.send(200, {

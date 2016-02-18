@@ -18,12 +18,13 @@ function createServer() {
     var userService = services.User;
 
     var server = restify.createServer({ name: 'GH1' });
+
     server
-        .use(restify.fullResponse())
         .use(restify.bodyParser())
-        .use(restify.CORS())
         .use(restify.gzipResponse())
+        .use(restify.CORS({ credentials: true }))
         .use(restify.queryParser())
+        .use(restify.fullResponse())
         .use(restify.throttle({
             burst: 100,
             rate: 50,

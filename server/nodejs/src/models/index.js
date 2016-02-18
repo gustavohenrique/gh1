@@ -14,8 +14,8 @@ var Site = require('./Site');
             Sequelize: Sequelize
         });
 
-        this.User.hasMany(this.Site, {as: 'sites'});
-        this.Site.belongsTo(this.User, {throught: 'usersites'});
+        this.User.hasMany(this.Site, {as: 'sites', constraints: false});
+        this.Site.belongsTo(this.User);
 
         this.User.sync();
         this.Site.sync();

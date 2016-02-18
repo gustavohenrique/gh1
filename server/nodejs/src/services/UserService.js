@@ -1,3 +1,5 @@
+var restify = require('restify');
+
 (function () {
 
     function UserService (models) {
@@ -29,15 +31,14 @@
             var email = req.body.email;
             var password = req.body.password;
             if (! email || ! password) {
-                res.send(400, {
-                    errors: ['empty email', 'empty password']
-                });
-                return;
+                next(new restify.NotAuthorizedError('empty email or password'));
             }
 
-            return models.User.findOne({ where: {
-                email: email
-            }}).then(function (user) {
+            return models.User.findOne({ where: { email: email } })
+            .then(function (user) {
+                if (! user) {
+                    next(new restify.NotAuthorizedError('email not found'));
+                }
                 if (user.isHashPasswordEqualsTo(password)) {
                     req.user = {
                         id: user.id,
@@ -46,15 +47,11 @@
                     next();
                 }
                 else {
-                    res.send(403, {
-                        errors: ['wrong password']
-                    });
+                    next(new restify.NotAuthorizedError('wrong password'));
                 }
             })
             .catch(function (err) {
-                res.send(403, {
-                    errors: [err.message]
-                });
+                next(new restify.NotAuthorizedError(err.message));
             });
         };
 
