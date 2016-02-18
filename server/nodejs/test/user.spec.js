@@ -23,7 +23,7 @@ describe('User and Authentication API', function() {
     });
 
     describe('Create', function () {
-        
+
         it('creates and returns an user', function (done) {
             var fake = {
                 email: 'someone@gmail.com',
@@ -36,7 +36,6 @@ describe('User and Authentication API', function() {
                 .send(fake)
                 .end(function (err, res) {
                     expect(res.status).to.equal(201);
-                
                     var user = res.body.user;
                     expect(user.id).to.equal(1);
                     expect(user.email).to.equal('someone@gmail.com');
@@ -47,7 +46,7 @@ describe('User and Authentication API', function() {
     });
 
     describe('Authenticated', function () {
-        
+
         it('authenticate the user and returns the token', function (done) {
             var fake = {
                 email: 'iam@gustavohenrique.com',
@@ -60,11 +59,11 @@ describe('User and Authentication API', function() {
                 .send(fake)
                 .end(function (err, res) {
                     expect(res.status).to.equal(200);
-                
                     var user = res.body.user;
+
                     expect(user.id).to.equal(10);
                     expect(user.email).to.equal('iam@gustavohenrique.com');
-                    expect(res.body.token).to.have.length(161);
+                    expect(user.token).to.have.length(161);
                     done();
                 });
         });
