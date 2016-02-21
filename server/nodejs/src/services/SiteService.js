@@ -75,7 +75,6 @@ var validUrl = require('valid-url');
                     errors: [err.message]
                 });
             });
-            
         };
 
         this.create = function (req, res) {

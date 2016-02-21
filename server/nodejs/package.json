@@ -35,7 +35,7 @@
     "jsonwebtoken": "^5.5.4",
     "pg": "^4.4.4",
     "restify": "^4.0.4",
-    "restify-route": "0.0.5",
+    "restify-route": "0.0.6",
     "sequelize": "^3.19.2",
     "valid-url": "^1.0.9"
   },

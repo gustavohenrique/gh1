@@ -22,7 +22,7 @@ function createServer() {
     server
         .use(restify.bodyParser())
         .use(restify.gzipResponse())
-        .use(restify.CORS({ credentials: true }))
+        .use(restify.CORS())
         .use(restify.queryParser())
         .use(restify.fullResponse())
         .use(restify.throttle({
@@ -35,6 +35,7 @@ function createServer() {
         .use(server)
         .jwt({
             secretOrPrivateKey: JWT_SECRET,
+            cors: true,
             allwaysVerifyAuthentication: false,
             callback: function (req, next, decoded) {
                 if (decoded) {
