@@ -105,6 +105,9 @@ var httpUtil = require('../util/httpUtil');
                     if (title) {
                         data.title = title;
                     }
+                    else {
+                        console.log('Is not possible to scrap title from url', longUrl, title);
+                    }
                     return models.Site.create(data);
                 }
                 return result;
