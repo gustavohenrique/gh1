@@ -8,7 +8,8 @@
     "test": "postgres://gh1_test:gh1_test@192.168.99.100:5434/gh1_test"
   },
   "scripts": {
-    "start": "DATABASE_URL=$npm_package_database_dev nodemon index.js",
+    "start": "node index.js",
+    "local": "DATABASE_URL=$npm_package_database_dev nodemon index.js",
     "test": "DATABASE_URL=$npm_package_database_test mocha --recursive -R spec",
     "test:xunit": "npm run test -- --reporter xunit",
     "coverage": "DATABASE_URL=$npm_package_database_test ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- -R spec; exit 0",
