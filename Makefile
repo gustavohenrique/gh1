@@ -4,5 +4,5 @@ angular:
 
 react:
 	rm -rf styles fonts
-	cp -rf client/react/dist/* .
+	cp -rf client/react_redux/dist/* .
 
