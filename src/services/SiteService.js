@@ -17,7 +17,7 @@ var validUrl = require('valid-url');
                 query.attributes = fields.split(',');
             }
 
-            var perPage = req.params.perPage || 10;
+            var perPage = parseInt(req.params.perPage) || 10;
             if (perPage > 0) {
                 query.limit = perPage;
             }
