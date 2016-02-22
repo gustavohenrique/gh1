@@ -1,0 +1,9 @@
+.tmp
+*.dump
+.DS_Store
+*.log
+*~
+node_modules
+dist
+coverage
+bin
