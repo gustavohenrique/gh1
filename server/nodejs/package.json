@@ -33,12 +33,12 @@
   "license": "MIT",
   "dependencies": {
     "bcrypt": "^0.8.5",
-    "jsonwebtoken": "^5.5.4",
-    "pg": "^4.4.4",
+    "follow-redirects": "0.0.7",
+    "jsonwebtoken": "^5.7.0",
+    "pg": "^4.4.6",
     "restify": "^4.0.4",
     "restify-route": "0.0.6",
-    "sequelize": "^3.19.2",
-    "valid-url": "^1.0.9"
+    "sequelize": "^3.19.3"
   },
   "devDependencies": {
     "chai": "^3.5.0",

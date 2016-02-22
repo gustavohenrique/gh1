@@ -1,4 +1,5 @@
 var validUrl = require('valid-url');
+var httpUtil = require('../util/httpUtil');
 
 (function () {
 
@@ -81,14 +82,12 @@ var validUrl = require('valid-url');
             var body = req.body || {};
             var longUrl = body.longUrl || '';
 
-            if (! validUrl.isUri(longUrl)) {
+            if (! httpUtil.isValid(longUrl)) {
                 res.send(400, {
                     errors: ['invalid uri']
                 });
                 return;
             }
-
-            var code = Math.random().toString(36).substr(2, 5);
 
             var status = 200;
 
@@ -97,16 +96,21 @@ var validUrl = require('valid-url');
             })
             .then(function (result) {
                 if (! result) {
-                    return models.Site.create({
+                    var code = Math.random().toString(36).substr(2, 5);
+                    var title = httpUtil.scrapTitleFrom(longUrl);
+                    var data = {
                         longUrl: longUrl,
                         code: code
-                    });
+                    };
+                    if (title) {
+                        data.title = title;
+                    }
+                    return models.Site.create(data);
                 }
                 return result;
             })
             .then(function (site) {
                 status = site.$options.isNewRecord ? 201 : 200;
-
                 var userId = body.userId;
                 if (userId > 0) {
                     return site.setUser(userId);

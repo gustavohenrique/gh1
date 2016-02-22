@@ -31,13 +31,12 @@ describe('Site API', function() {
                 
                 var site = res.body.sites[0];
                 expect(Object.keys(site)).to.have.length(12);
-                expect(site.id).to.equal(1);
-                expect(site.title).to.equal('22 Essential CSS Recipes');
-                expect(site.longUrl).to.equal('http://ipestov.com/22-essential-css-recipes/');
-                expect(site.code).to.equal('r733t');
+                expect(site.id).to.equal(8);
+                expect(site.title).to.equal('Why Everyone Should Be Moving To HTTP/2');
+                expect(site.longUrl).to.equal('http://searchengineland.com/everyone-moving-http2-236716');
+                expect(site.code).to.equal('flvqm');
                 expect(site.tags[0]).to.equal('developer');
-                expect(site.tags[1]).to.equal('design');
-                expect(site.tags[2]).to.equal('css');
+                expect(site.tags[1]).to.equal('http2');
                 done();
             });
         });
@@ -59,7 +58,7 @@ describe('Site API', function() {
                 expect(res.body.sites).to.have.length(2);
 
                 var site = res.body.sites[0];
-                expect(site.code).to.equal('qhh62');
+                expect(site.code).to.equal('k33kr');
                 done();
             });
         });
