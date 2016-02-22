@@ -1,8 +1,8 @@
 angular:
 	rm -rf styles partials index.html script.js
-	mv web/angular/dist/* .
+	mv client/angular/dist/* .
 
 react:
 	rm -rf styles fonts
-	cp -rf web/react/dist/* .
+	cp -rf client/react/dist/* .
 
