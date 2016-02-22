@@ -1,0 +1,43 @@
+import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
+import TagLabel from './TagLabel.jsx';
+import { setSite } from '../../../actions/sitesActions';
+
+class TagContainer extends React.Component {
+
+    constructor (props) {
+        super(props);
+        this.handleOnClickOpenModal = this.handleOnClickOpenModal.bind(this);
+    }
+
+    handleOnClickOpenModal () {
+        const { dispatch, site, siteIndex } = this.props;
+        dispatch(setSite(site, siteIndex));
+        document.querySelector('#backgroundModal').classList.remove('hidden');
+    }
+
+    render () {
+        const { user, site, siteIndex } = this.props;
+        const hasUserAllowedToEdit = user.id && (user.id === site.userId);
+        const shouldShowAddTagButton = hasUserAllowedToEdit && site.tags.length < 3;
+
+        return (
+            <div>
+                {site.tags.map(function (tag, index) {
+                    return (tag !== '') ? <TagLabel key={index} index={index} tag={tag} site={site} siteIndex={siteIndex} user={user} /> : null;
+                })}
+                <a onClick={this.handleOnClickOpenModal} title="Add tag (max allowed is 3)" style={shouldShowAddTagButton ? null : {display:"none"}} className="tag btn btn-primary btn-xs">
+                    + <i className="glyphicon glyphicon-tags"></i>
+                </a>
+            </div>
+        );
+    }
+}
+
+TagContainer.propTypes = {
+    user: PropTypes.object.isRequired,
+    site: PropTypes.object.isRequired,
+    siteIndex: PropTypes.number.isRequired
+};
+
+export default connect()(TagContainer);

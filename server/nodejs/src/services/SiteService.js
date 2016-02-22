@@ -7,7 +7,7 @@ var validUrl = require('valid-url');
         this.find = function (req, res) {
             var query = {
                 order: [
-                    ['id', 'ASC']
+                    ['createdAt', 'DESC']
                 ],
                 where: {isPublic: true}
             };
@@ -17,12 +17,12 @@ var validUrl = require('valid-url');
                 query.attributes = fields.split(',');
             }
 
-            var perPage = req.params.perPage || 10;
+            var perPage = parseInt(req.params.perPage) || 10;
             if (perPage > 0) {
                 query.limit = perPage;
             }
 
-            var page = req.params.page || 1;
+            var page = parseInt(req.params.page) || 1;
             var offset = (page - 1) * perPage;
             if (offset > 0) {
                 query.offset = offset;
