@@ -10,10 +10,12 @@ describe('Site API', function() {
     var server = app.createServer();
 
     beforeEach(function (done) {
-        app.db.sync({ force: true }).then(function () {
+        app.db.sync({ force: true })
+        .then(function () {
             client = request(server);
             return client;
-        }).then(function () {
+        })
+        .then(function () {
             return fixtures.loadFile('test/fixtures.json', models, {
                 log: function (msg) {}
             });
@@ -127,6 +129,7 @@ describe('Site API', function() {
                 .end(function (err, res) {
                     expect(res.status).to.equal(200);
                     var site = res.body.site;
+                    expect(site.title).to.equal('22 Essential CSS Recipes');
                     expect(site.code).to.equal('r733t');
                     done();
                 });

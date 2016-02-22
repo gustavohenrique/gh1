@@ -1,4 +1,3 @@
-var validUrl = require('valid-url');
 var httpUtil = require('../util/httpUtil');
 
 (function () {
@@ -97,18 +96,10 @@ var httpUtil = require('../util/httpUtil');
             .then(function (result) {
                 if (! result) {
                     var code = Math.random().toString(36).substr(2, 5);
-                    var title = httpUtil.scrapTitleFrom(longUrl);
-                    var data = {
+                    return models.Site.create({
                         longUrl: longUrl,
                         code: code
-                    };
-                    if (title) {
-                        data.title = title;
-                    }
-                    else {
-                        console.log('Is not possible to scrap title from url', longUrl, title);
-                    }
-                    return models.Site.create(data);
+                    });
                 }
                 return result;
             })
@@ -119,6 +110,14 @@ var httpUtil = require('../util/httpUtil');
                     return site.setUser(userId);
                 }
                 return site;
+            })
+            .then(function (site) {
+                if (site.$options.isNewRecord) {
+                    return httpUtil.scrapAndAddTitle(site, longUrl);
+                }
+                else {
+                    return site;
+                }
             })
             .then(function (site) {
                 res.send(status, {
