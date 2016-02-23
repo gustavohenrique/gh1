@@ -6,7 +6,7 @@ It's my personal URL shortener writen in differents technologies. I used an arch
 
 ### Golang + AngularJS 1.x + Semantic-UI
 
-![AngularJS](screenshots/angularjs.png)
+![AngularJS](angularjs.png)
 
 My first personal web app written in Go. I have studied Go for 2 weeks and I learned so much about it.
 In this first version I learned about:
@@ -21,7 +21,7 @@ If you have tips or advices to improve my code please, share with me.
 
 ### NodeJS + ReactJS/Redux + Bootstrap3
 
-![React](screenshots/react.png)
+![React](react.png)
 
 I used Restify to develop a Restful API in NodeJS.
 

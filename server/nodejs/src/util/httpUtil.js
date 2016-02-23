@@ -8,7 +8,17 @@ var Promise = require('bluebird');
 (function () {
 
     function isValid (uri) {
-        return validUrl.isUri(uri);
+        var blacklist = ['gh1.co', 'localhost'];
+        if (validUrl.isUri(uri)) {
+            var parts = url.parse(uri, true);
+            for (var i = 0; i < blacklist.length; i++) {
+                if (parts.hostname.indexOf(blacklist[i]) >= 0) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
     }
 
     function scrapAndAddTitle (site, uri) {

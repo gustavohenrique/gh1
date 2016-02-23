@@ -145,6 +145,16 @@ describe('Site API', function() {
                 .end(done);
         });
 
+        it('should fail if the url has the same domain of the application', function (done) {
+            var fake = { longUrl: 'http://gh1.co/xpr4j' };
+            client
+                .post('/sites')
+                .set('Accept', 'application/json')
+                .send(fake)
+                .expect(400)
+                .end(done);
+        });
+
         it('creates and returns a valid site with an user', function (done) {
             var fake = { longUrl: 'http://uniqueurl.com', userId: 10 };
             client
