@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import QRCode from 'qrcode.react';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { addSite, setSite } from '../../actions/sitesActions';
+import * as util from '../../util';
 
 export class SiteForm extends React.Component {
 
@@ -33,16 +34,12 @@ export class SiteForm extends React.Component {
 
     handleOnClickAddSite () {
         const url = this.state.longUrl || '';
-        let hasError = true;
-        try {
-            new URL(url);
-            hasError = false;
-        } catch (e) {}
+        const isValid = util.isValidUrl(url);
 
-        if (! hasError && url.length > 0) {
+        if (isValid) {
             this.props.dispatch(addSite(url.trim(), this.props.user.id));
         }
-        this.setState({ hasError: hasError });
+        this.setState({ hasError: ! isValid });
     }
 
     handleOnKeyDownAddSite (e) {

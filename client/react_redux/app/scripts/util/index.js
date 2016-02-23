@@ -31,3 +31,22 @@ export function getEndpoints (window) {
         USERS: config.BASE_API_URL + '/users'
     };
 }
+
+export function isValidUrl (url) {
+    if (! url || url.length === 0) {
+        return false;
+    }
+    
+    const blacklist = ['gh1.co', 'localhost'];
+    try {
+        new URL(url);
+        for (var i = 0; i < blacklist.length; i++) {
+            if (url.indexOf(blacklist[i]) >= 0) {
+                return false;
+            }
+        }
+        return true;
+    } catch (e) {
+        return false;
+    }
+}
