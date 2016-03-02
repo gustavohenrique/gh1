@@ -1,13 +1,15 @@
 import axios from 'axios';
+import { getEndpoints } from './util';
 
 export class SiteApi {
 
     constructor (endpoints) {
-        this.endpoints = endpoints;
+        const window = window || null;
+        this.endpoints = endpoints || getEndpoints(window);
     }
 
-    create (url, userId) {
-        return axios.post(this.endpoints.SITES, { longUrl: url, userId: userId });
+    create (site) {
+        return axios.post(this.endpoints.SITES, { longUrl: site.longUrl, userId: site.userId });
     }
 
     find (options) {

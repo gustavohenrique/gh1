@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import TagLabel from './TagLabel.jsx';
-import { setSite } from '../../../actions/sitesActions';
+import { setSite } from '../../../actions';
 
 class TagContainer extends React.Component {
 

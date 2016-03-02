@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 
 
-export default class AppBar extends React.Component {
+export default class TopBar extends React.Component {
 
     render() {
         const { path } = this.props;

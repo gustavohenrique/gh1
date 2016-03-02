@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { addTag, setSite } from '../../../actions/sitesActions';
+import { addTag, setSite } from '../../../actions';
 
 class TagModal extends React.Component {
     

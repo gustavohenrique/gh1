@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Pagination from './Pagination.jsx';
 import SiteItem from './SiteItem.jsx';
 import TagModal from './tags/TagModal.jsx';
-import { getSites } from '../../actions/sitesActions';
+import { getSites } from '../../actions';
 
 class SitesContainer extends React.Component {
 

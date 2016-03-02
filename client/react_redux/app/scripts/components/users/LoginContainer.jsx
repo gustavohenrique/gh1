@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { authenticate, dontRedirectAgainWhileIsAutenticated } from '../../actions/usersActions';
+import { authenticate, dontRedirectAgainWhileIsAutenticated } from '../../actions';
 
 export class LoginContainer extends React.Component {
 

@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { removeTag } from '../../../actions/sitesActions';
+import { removeTag } from '../../../actions';
 
 class TagLabel extends React.Component {
 

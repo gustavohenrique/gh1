@@ -1,13 +1,13 @@
 import React, { PropTypes } from 'react';
-import AppBar from './AppBar.jsx';
+import TopBar from './TopBar.jsx';
 import LoadingBar from './LoadingBar.jsx';
 
 
-export default class Application extends React.Component {
+export default class App extends React.Component {
     render () {
         return (
             <div className="container-fluid">
-                <AppBar path={this.props.children.props.route.path} />
+                <TopBar path={this.props.children.props.route.path} />
                 <LoadingBar />
                 <div className="tab-content">
                     {this.props.children}
@@ -17,6 +17,6 @@ export default class Application extends React.Component {
     }
 }
 
-Application.propTypes = {
+App.propTypes = {
     children: PropTypes.node.isRequired
 };

@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 class LoadingBar extends React.Component {
 
     render () {
-        const { isFetching } = this.props;
-        let width = isFetching ? '100%' : '0%';
+        const { loading } = this.props;
+        let width = loading ? '100%' : '0%';
         
         return (
             <div className="progress active progress-striped" style={{marginBottom: 0}}>
@@ -16,13 +16,13 @@ class LoadingBar extends React.Component {
 }
 
 LoadingBar.propTypes = {
-    isFetching: PropTypes.bool.isRequired
+    loading: PropTypes.bool
 };
 
-function mapStateToProps (state) {
+const mapStateToProps = (state) => {
     return {
-        isFetching: state.isFetching
+        loading: state.get('loading')
     };
-}
+};
 
 export default connect(mapStateToProps)(LoadingBar);

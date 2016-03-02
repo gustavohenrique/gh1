@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { getSites, nextPage, previousPage, refreshList } from '../../actions/sitesActions';
+import { getSites, nextPage, previousPage, refreshList } from '../../actions';
 
 export class Pagination extends React.Component {
 

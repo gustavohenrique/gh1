@@ -11,3 +11,8 @@ export const SITE_ADDED = 'SITE_ADDED';
 export const AUTHENTICATED = 'AUTHENTICATED';
 export const NOT_AUTHENTICATED = 'NOT_AUTHENTICATED';
 export const TURN_OFF_REDIRECT = 'TURN_OFF_REDIRECT';
+
+export const LOADING = 'LOADING';
+export const ADD_SITE_SUCCESS = 'ADD_SITE_SUCCESS';
+export const ADD_SITE_FAIL = 'ADD_SITE_FAIL';
+export const SHOW_LOADING = 'SHOW_LOADING';
