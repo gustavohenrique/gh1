@@ -1,6 +1,5 @@
 import * as types from './types';
 import { SiteApi, UserApi } from './api';
-import { getEndpoints } from './util';
 
 const siteApi = new SiteApi();
 const userApi = new UserApi();
@@ -16,40 +15,45 @@ export function addSite (site) {
         dispatch(LOADING);
         
         siteApi.create(site).then((response) => {
-            let site = response.data.site;
-            site.shortUrl = getEndpoints().SHORT_URL + site.code;
             dispatch({
                 type: types.ADD_SITE_SUCCESS,
-                site: site
+                site: response.data.site
             });
         })
         .catch ((err) => {
             dispatch({
-                type: types.ADD_SITE_FAIL,
-                error: {
-                    message: err.data ? err.data.errors[0] : 'Connection Refused',
-                    status: err.status
-                }
+                type: types.ADD_SITE_FAIL
             });
         });
     };
 }
 
-export function getSites () {
+export function getSites (paginationParams) {
     return (dispatch, getState) => {
         dispatch(LOADING);
-        const state = getState();
 
+        const pagination = paginationParams || getState().get('pagination').toJS();
         siteApi.find({
-            pagination: state.pagination
+            pagination: pagination
         })
         .then((response) => {
             dispatch({
-                type: types.FILTER_SITES_SUCCESS,
-                response: response
+                type: types.SITE_LIST_SUCCESS,
+                sites: response.data.sites,
+                pagination: {
+                    current: response.data.current,
+                    next: response.data.next,
+                    previous: response.data.previous,
+                    page: pagination.page,
+                    perPage: pagination.perPage
+                }
             });
         })
-        .catch((err) => {});
+        .catch((err) => {
+            dispatch({
+                type: types.SITE_LIST_FAIL
+            });
+        });
     };
 }
 
@@ -57,19 +61,24 @@ export function addTag (tag) {
     return (dispatch, getState) => {
         dispatch(LOADING);
         
-        const state = getState();
+        const state = getState().toJS();
 
         siteApi.addTag({
             tag: tag,
-            site: state.site,
+            site: state.siteEdit,
             siteIndex: state.siteIndex,
             user: state.user
         })
         .then((response) => {
             dispatch({
-                type: types.TAG_ADDED,
-                response: response,
+                type: types.ADD_TAG_SUCCESS,
+                site: response.data.site,
                 siteIndex: state.siteIndex
+            });
+        })
+        .catch((err) => {
+            dispatch({
+                type: types.ADD_TAG_FAIL
             });
         });
     };
@@ -92,14 +101,20 @@ export function removeTag (params) {
     };
 }
 
-export function setSite (site, siteIndex) {
+export function setSiteEdit (site, siteIndex) {
     return {
         type: types.SET_SITE,
-        site: site,
+        siteEdit: site,
         siteIndex: siteIndex
     };
 }
 
+export function resetError (key) {
+    return {
+        type: types.RESET_ERROR,
+        error: key
+    };
+}
 
 export function nextPage () {
     return {

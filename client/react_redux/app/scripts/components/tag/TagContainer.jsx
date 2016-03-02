@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import TagLabel from './TagLabel.jsx';
-import { setSite } from '../../../actions';
+import * as actions from '../../actions';
 
-class TagContainer extends React.Component {
+export class Tags extends React.Component {
 
     constructor (props) {
         super(props);
@@ -11,15 +11,14 @@ class TagContainer extends React.Component {
     }
 
     handleOnClickOpenModal () {
-        const { dispatch, site, siteIndex } = this.props;
-        dispatch(setSite(site, siteIndex));
-        document.querySelector('#backgroundModal').classList.remove('hidden');
+        const { site, siteIndex } = this.props;
+        this.props.setSiteEdit(site, siteIndex);
     }
 
     render () {
         const { user, site, siteIndex } = this.props;
         const hasUserAllowedToEdit = user.id && (user.id === site.userId);
-        const shouldShowAddTagButton = hasUserAllowedToEdit && site.tags.length < 3;
+        const shouldShowAddTagButton = true; //hasUserAllowedToEdit && site.tags.length < 3;
 
         return (
             <div>
@@ -34,10 +33,10 @@ class TagContainer extends React.Component {
     }
 }
 
-TagContainer.propTypes = {
-    user: PropTypes.object.isRequired,
-    site: PropTypes.object.isRequired,
+Tags.propTypes = {
+    user: PropTypes.object,
+    site: PropTypes.object,
     siteIndex: PropTypes.number.isRequired
 };
 
-export default connect()(TagContainer);
+export const TagContainer = connect(null, actions)(Tags);

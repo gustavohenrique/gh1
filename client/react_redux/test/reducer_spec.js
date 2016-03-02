@@ -26,16 +26,34 @@ describe('reducer', () => {
         expect(nextState.get('site')).to.equal(fromJS(action.site));
     });
 
-    it('ADD_SITE_FAIL', () => {
+    it('ADD_SITE_FAIL should reset errors', () => {
+        const initialState = fromJS({
+            errors: ['addTag']
+        });
         const action = {
-            type: types.ADD_SITE_FAIL,
-            error: {
-                message: 'Bad Request',
-                status: 400
-            }
+            type: types.ADD_SITE_FAIL
         };
-        const nextState = reducer(reducer.INITIAL_STATE, action);
-        expect(nextState.get('siteError')).to.equal(fromJS(action.error));
+        const nextState = reducer(initialState, action);
+        expect(nextState.get('errors')).to.equal(List.of(types.ADD_SITE_FAIL));
+    });
+
+    it('RESET_ERROR', () => {
+        const initialState = fromJS({
+            errors: ['addTag', types.RESET_ERROR, 'listSite']
+        });
+        const action = {
+            type: types.RESET_ERROR
+        };
+        const nextState = reducer(initialState, action);
+        expect(nextState.get('errors')).to.equal(List.of('addTag', 'listSite'));
+    });
+
+    it('immutable', () => {
+        const initialState = fromJS({
+            'errors': ['a', 'b', 'c']
+        });
+        
+        expect(initialState.get('errors').contains('b')).to.be.true;
     });
 
 });

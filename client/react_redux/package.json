@@ -5,7 +5,7 @@
   "scripts": {
     "copy-html-dev": "cp app/dev.html dist/index.html && cp app/styles/card.css dist/",
     "copy-html-prod": "cp app/prod.html dist/index.html && cp app/styles/card.css dist/",
-    "start": "npm run copy-html-dev && ./node_modules/.bin/webpack-dev-server --progress --colors",
+    "start": "npm run copy-html-dev && cp -r ./node_modules/bootstrap/dist/fonts dist/ && ./node_modules/.bin/webpack-dev-server --progress --colors",
     "build": "npm run copy-html-prod && NODE_ENV=production ./node_modules/.bin/webpack -p",
     "clean": "./node_modules/.bin/rimraf .tmp dist",
     "lint": "./node_modules/.bin/eslint app/scripts/**/*.js app/scripts/**/*.jsx tests/**/*.js; exit 0",

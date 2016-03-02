@@ -53,3 +53,11 @@ export function isValidUrl (url) {
         return false;
     }
 }
+
+export function showBackgroundModal () {
+    document.querySelector('#backgroundModal').classList.remove('hidden');
+}
+
+export function hideBackgroundModal () {
+    document.querySelector('#backgroundModal').classList.add('hidden');
+}

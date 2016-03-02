@@ -1,32 +1,51 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { getSites, nextPage, previousPage, refreshList } from '../../actions';
+import * as actions from '../../actions';
 
-export class Pagination extends React.Component {
+export default class Pagination extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.previousPage = this.previousPage.bind(this);
+        this.nextPage = this.nextPage.bind(this);
+        this.refreshFirstPage = this.refreshFirstPage.bind(this);
+    }
+
+    previousPage () {
+        const previous = this.props.pagination.previous;
+        const pagination = Object.assign({}, this.props.pagination, { page: previous });
+        this.props.getSites(pagination);
+    }
+
+    nextPage () {
+        const next = this.props.pagination.next;
+        const pagination = Object.assign({}, this.props.pagination, { page: next });
+        this.props.getSites(pagination);
+    }
+
+    refreshFirstPage () {
+        const pagination = Object.assign({}, this.props.pagination, { page: 1 });
+        this.props.getSites(pagination);
+    }
 
     render () {
         return (
             <nav>
                 <ul className="pagination" style={{margin: 0}}>
                     <li>
-                        <a className="previous" onClick={this.props.previousPage} aria-label="Previous">
-                            <span className="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+                        <a className="previous" onClick={this.previousPage}>
+                            <span className="glyphicon glyphicon-arrow-left"></span>
                         </a>
                     </li>
-                    <li><a className="current">{this.props.currentPage}</a></li>
+                    <li><a className="current">{this.props.pagination.current}</a></li>
                     <li>
-                        <a className="next" onClick={this.props.nextPage} aria-label="Next">
-                            <span className="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
+                        <a className="next" onClick={this.nextPage}>
+                            <span className="glyphicon glyphicon-arrow-right"></span>
                         </a>
                     </li>
                     <li>
-                        <a className="refresh" onClick={this.props.refreshList} aria-label="Refresh">
-                            <span className="glyphicon glyphicon-refresh" aria-hidden="true"></span>
-                        </a>
-                    </li>
-                    <li className="hidden">
-                        <a data-toggle="modal" data-target="#filterModal">
-                            <span className="glyphicon glyphicon-filter" aria-hidden="true"></span>
+                        <a className="refresh" onClick={this.refreshFirstPage}>
+                            <span className="glyphicon glyphicon-refresh"></span>
                         </a>
                     </li>
                 </ul>
@@ -36,35 +55,6 @@ export class Pagination extends React.Component {
 }
 
 Pagination.propTypes = {
-    previousPage: PropTypes.func.isRequired,
-    nextPage: PropTypes.func.isRequired,
-    refreshList: PropTypes.func.isRequired
+    pagination: PropTypes.object.isRequired,
+    getSites: PropTypes.func.isRequired
 };
-
-const mapStateToProps = (state) => {
-    return {
-        currentPage: state.pagination.current
-    };
-};
-
-const mapDispatchToProps = (dispatch, ownProps) => {
-    return {
-        nextPage: () => {
-            dispatch(nextPage());
-            dispatch(getSites());
-        },
-
-        previousPage: () => {
-            dispatch(previousPage());
-            dispatch(getSites());
-        },
-
-        refreshList: () => {
-            dispatch(refreshList());
-            dispatch(getSites());
-        }
-
-    };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Pagination);

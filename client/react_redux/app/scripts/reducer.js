@@ -5,90 +5,64 @@ export const INITIAL_STATE = fromJS({
     loading: false,
     sites: [],
     site: {},
+    siteEdit: {},
     user: {},
     redirectAfterLogin: false,
-    siteError: {},
+    errors: [],
     pagination: {
         page: 1,
-        perPage: 12,
+        perPage: 2,
         current: 0,
         next: 1,
         previous: 0
     }
 });
 
+const appendError = (state, key) => {
+    return state.set('errors', state.get('errors').push(key))
+        .set('loading', false);
+}
+
 export default function (state = INITIAL_STATE, action) {
     
     switch (action.type) {
         case types.LOADING:
-            return state.set('loading', fromJS(true));
+            return state.set('loading', true);
 
         case types.ADD_SITE_SUCCESS:
             return INITIAL_STATE.set('site', fromJS(action.site));
 
         case types.ADD_SITE_FAIL:
-            return INITIAL_STATE.set('siteError', fromJS(action.error));
+        case types.SITE_LIST_FAIL:
+            return appendError(INITIAL_STATE, action.type);
 
-/*
-        case types.REQUEST_START:
-            let isWaiting = action.hasOwnProperty('isWaitingRequest') ? action.isWaitingRequest : false;
-            return {
-                ...state,
-                isWaitingRequest: isWaiting,
-                isFetching: true
-            };
-
-        case types.FILTER_SITES_SUCCESS:
-            const pagination = {
-                current: action.response.data.current,
-                next: action.response.data.next,
-                previous: action.response.data.previous
-            };
-            return {
-                ...markAsFinishedRequest(state),
-                sites: action.response.data.sites,
-                site: null,
-                pagination: Object.assign({}, state.pagination, pagination)
-            };
-
-        case types.SET_PREVIOUS_PAGE:
-            const previousPage = state.pagination.previous;
-            return {
-                ...state,
-                pagination: Object.assign({}, state.pagination, { page: previousPage })
-            };
-
-        case types.SET_NEXT_PAGE:
-            const nextPage = state.pagination.next;
-            return {
-                ...state,
-                pagination: Object.assign({}, state.pagination, { page: nextPage })
-            };
-
-        case types.SET_REFRESH_LIST:
-            return {
-                ...state,
-                pagination: Object.assign({}, state.pagination, { page: 1 })
-            };
+        case types.SITE_LIST_SUCCESS:
+            return INITIAL_STATE.set('sites', fromJS(action.sites))
+                .set('pagination', fromJS(action.pagination));
 
         case types.SET_SITE:
-            return {
-                ...state,
-                site: action.site,
-                siteIndex: action.siteIndex
-            };
+            return state.set('siteEdit', fromJS(action.siteEdit))
+                .set('siteIndex', action.siteIndex);
+
+        case types.ADD_TAG_SUCCESS:
+            let sites = state.get('sites').toJS();
+            sites[action.siteIndex] = action.site;
+            return state.set('sites', fromJS(sites));
+
+        case types.ADD_TAG_FAIL:
+            return appendError(state, action.type);
+
+        case types.RESET_ERROR:
+            const errors = state.get('errors');
+            const newList = errors.delete(errors.findIndex((item, index) => {
+                if (item === action.error) {
+                    return index;
+                }
+            }));
+            return state.set('errors', newList);
 
         
-
-        case types.TAG_ADDED:
-        case types.TAG_REMOVED:
-            let sites = state.sites.slice(0); // returns new array
-            sites[action.siteIndex] = action.response.data.site;
-            return {
-                ...markAsFinishedRequest(state),
-                sites: sites
-            };
-
+/*
         case types.AUTHENTICATED:
             let user = action.response.data.user;
             user.isAuthenticated = true;

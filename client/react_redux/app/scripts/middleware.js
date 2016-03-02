@@ -3,7 +3,7 @@ export default store => next => action => {
         action(store.dispatch, store.getState);
     }
     else {
-        const loading = (action.meta && action.meta.remote);
+        const loading = (action.hasOwnProperty('meta') && action.meta.hasOwnProperty('remote'));
         action.loading = loading;
         return next(action);
     }

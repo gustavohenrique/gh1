@@ -6,7 +6,7 @@ import { createStore, applyMiddleware, compose } from 'redux';
 
 import App from './components/App.jsx';
 import { SiteAddContainer } from './components/site/SiteAdd.jsx';
-import SitesContainer from './components/site/SitesContainer.jsx';
+import SiteListContainer from './components/site/SiteListContainer.jsx';
 import LoginContainer from './components/users/LoginContainer.jsx';
 import reducer from './reducer';
 
@@ -25,6 +25,7 @@ render(
             <Route path='/' component={App}>
                 <IndexRoute component={SiteAddContainer} />
                 <Route path='new' component={SiteAddContainer} />
+                <Route path='list' component={SiteListContainer} />
             </Route>
         </Router>
     </Provider>,

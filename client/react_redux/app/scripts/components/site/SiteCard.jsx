@@ -1,13 +1,12 @@
 import React, { PropTypes } from 'react';
 import QRCode from 'qrcode.react';
-import TagContainer from './tags/TagContainer.jsx';
 import { convertToDate } from '../../util';
+import { TagContainer } from '../tag/TagContainer.jsx';
 
-export default class SiteItem extends React.Component {
+export default class SiteCard extends React.Component {
 
     render () {
-        const { user, site, siteIndex, endpoints } = this.props;
-        const shortUrl = endpoints.SHORT_URL + site.code;
+        const { user, site, siteIndex } = this.props;
 
         return (
             <div className="col-sm-4">
@@ -20,7 +19,7 @@ export default class SiteItem extends React.Component {
                             <span>Last click on {convertToDate(site.lastAccessAt)}</span>
                         </div>
                         <div className="card-tags">
-                            <TagContainer user={user} site={site} siteIndex={siteIndex} />
+                            <TagContainer ref="tags" user={user} site={site} siteIndex={siteIndex} />
                         </div>
 
                     </div>
@@ -30,12 +29,12 @@ export default class SiteItem extends React.Component {
                         </ul>
                     </div>
                     <div className="card-qrcode">
-                        <a href={shortUrl} title={site.longUrl}>
-                            <QRCode value={shortUrl} size={100} />
+                        <a href={site.shortUrl} title={site.longUrl}>
+                            <QRCode value={site.shortUrl} size={100} />
                         </a>
                     </div>
                     <div className="card-link alert alert-primary">
-                        <a href={shortUrl} title={site.longUrl} target="_blank" className="alert-link">{shortUrl}</a>
+                        <a href={site.shortUrl} title={site.longUrl} target="_blank" className="alert-link">{site.shortUrl}</a>
                     </div>
                 </div>
             </div>
@@ -43,9 +42,8 @@ export default class SiteItem extends React.Component {
     }
 }
 
-SiteItem.propTypes = {
-    user: PropTypes.object.isRequired,
+SiteCard.propTypes = {
+    user: PropTypes.object,
     site: PropTypes.object.isRequired,
-    siteIndex: PropTypes.number.isRequired,
-    endpoints: PropTypes.object.isRequired
+    siteIndex: PropTypes.number.isRequired
 };

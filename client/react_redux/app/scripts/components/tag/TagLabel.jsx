@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { removeTag } from '../../../actions';
+import { removeTag } from '../../actions';
 
 class TagLabel extends React.Component {
 
@@ -18,7 +18,7 @@ TagLabel.propTypes = {
     site: PropTypes.object.isRequired,
     index: PropTypes.number.isRequired,
     siteIndex: PropTypes.number.isRequired,
-    removeTag: PropTypes.func.isRequired
+    removeTag: PropTypes.func
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
