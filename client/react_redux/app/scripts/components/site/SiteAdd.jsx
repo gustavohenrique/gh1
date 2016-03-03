@@ -53,8 +53,8 @@ export class SiteAdd extends React.Component {
 
     render () {
         const { site, hasError } = this.props;
-        const Success = (site && site.shortUrl) ? (<SiteSimpleCard ref="card" site={site} />) : (<div className="site-info" />);
-        const InvalidUrl = this.state.longUrlIsValid ? (<span />) : (<div className="validation-error" style={{fontSize: "12px", color: "red", marginBottom: "10px"}}>Please enter a valid URL address</div>);
+        const Success = (site && site.shortUrl) ? (<SiteSimpleCard ref="card" site={site} />) : (<div />);
+        const InvalidUrl = this.state.longUrlIsValid ? (<span />) : (<div style={{fontSize: "12px", color: "red", marginBottom: "10px"}}>Please enter a valid URL address</div>);
         const Fail = hasError ? (<div className="alert alert-danger" style={{marginTop: "10px"}}>Cannot be possible to add this site.</div>) : (<div />);
 
         return (

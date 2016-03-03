@@ -35,6 +35,7 @@ class TagModal extends React.Component {
         const tagName = this.refs.tagName.value || '';
         if (this.props.site && this.props.site.tags.length < 3 && tagName !== '') {
             this.props.addTag(tagName.trim());
+            this.refs.tagName.value = '';
         }
     }
 

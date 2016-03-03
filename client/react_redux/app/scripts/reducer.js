@@ -11,7 +11,7 @@ export const INITIAL_STATE = fromJS({
     errors: [],
     pagination: {
         page: 1,
-        perPage: 2,
+        perPage: 12,
         current: 0,
         next: 1,
         previous: 0
@@ -30,14 +30,17 @@ export default function (state = INITIAL_STATE, action) {
             return state.set('loading', true);
 
         case types.ADD_SITE_SUCCESS:
-            return INITIAL_STATE.set('site', fromJS(action.site));
+            return state.set('site', fromJS(action.site))
+                .set('loading', false);
 
         case types.ADD_SITE_FAIL:
         case types.SITE_LIST_FAIL:
+        case types.AUTHENTICATE_FAIL:
             return appendError(INITIAL_STATE, action.type);
 
         case types.SITE_LIST_SUCCESS:
-            return INITIAL_STATE.set('sites', fromJS(action.sites))
+            return state.set('sites', fromJS(action.sites))
+                .set('loading', false)
                 .set('pagination', fromJS(action.pagination));
 
         case types.SET_SITE:
@@ -45,11 +48,15 @@ export default function (state = INITIAL_STATE, action) {
                 .set('siteIndex', action.siteIndex);
 
         case types.ADD_TAG_SUCCESS:
+        case types.REMOVE_TAG_SUCCESS:
             let sites = state.get('sites').toJS();
             sites[action.siteIndex] = action.site;
-            return state.set('sites', fromJS(sites));
+            return state.set('sites', fromJS(sites))
+                .set('siteEdit', fromJS(action.site))
+                .set('loading', false);
 
         case types.ADD_TAG_FAIL:
+        case types.REMOVE_TAG_FAIL:
             return appendError(state, action.type);
 
         case types.RESET_ERROR:
@@ -60,30 +67,17 @@ export default function (state = INITIAL_STATE, action) {
                 }
             }));
             return state.set('errors', newList);
-
         
-/*
-        case types.AUTHENTICATED:
-            let user = action.response.data.user;
+        case types.AUTHENTICATE_SUCCESS:
+            let user = action.user;
             user.isAuthenticated = true;
-            return {
-                ...markAsFinishedRequest(state),
-                user: user,
-                redirectAfterLogin: true
-            };
+            return state.set('user', fromJS(user))
+                .set('redirectAfterLogin', true)
+                .set('loading', false);
 
-        case types.NOT_AUTHENTICATED:
-            return {
-                ...markAsFinishedRequest(state),
-                errors: action.response.data
-            };
+        case types.SET_REDIRECT_OFF:
+            return state.set('redirectAfterLogin', false);
 
-        case types.TURN_OFF_REDIRECT:
-            return {
-                ...markAsFinishedRequest(state),
-                redirectAfterLogin: false
-            };
-        */
         default:
             return state;
     }

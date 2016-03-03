@@ -1,13 +1,32 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { removeTag } from '../../actions';
+import * as actions from '../../actions';
 
 class TagLabel extends React.Component {
 
+    constructor(props) {
+        super(props);
+        this.removeTag = this.removeTag.bind(this);
+    }
+
+    removeTag () {
+        const { tag, user, site, siteIndex, index } = this.props;
+        const isUserAllowedToEdit = user.id && (user.id === site.userId);
+        if (isUserAllowedToEdit) {
+            const params = {
+                site: site,
+                siteIndex: siteIndex,
+                tag: tag,
+                index: index,
+                user: user
+            };
+            this.props.removeTag(params);
+        }
+    }
+
     render () {
-        const { tag } = this.props;
         return (
-            <a title="Double click to remove" onDoubleClick={this.props.removeTag} className="tag label label-info">{tag}</a>
+            <a title="Double click to remove" onDoubleClick={this.removeTag} className="tag label label-info">{this.props.tag}</a>
         );
     }
 }
@@ -21,22 +40,4 @@ TagLabel.propTypes = {
     removeTag: PropTypes.func
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-    return {
-        removeTag: () => {
-            const hasUserAllowedToEdit = ownProps.user.id && (ownProps.user.id === ownProps.site.userId);
-            if (hasUserAllowedToEdit) {
-                const params = {
-                    site: ownProps.site,
-                    siteIndex: ownProps.siteIndex,
-                    tag: ownProps.tag,
-                    index: ownProps.index,
-                    user: ownProps.user
-                };
-                dispatch(removeTag(params));
-            }
-        }
-    };
-};
-
-export default connect(null, mapDispatchToProps)(TagLabel);
+export default connect(null, actions)(TagLabel);

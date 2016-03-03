@@ -56,8 +56,8 @@ describe('<SiteAdd/>', () => {
             <SiteAdd user={null} site={null} addSite={null} />
         );
         component.setState({'longUrlIsValid': true});
-        const div = findRenderedDOMComponentWithClass(component, 'validation-error');
-        expect(div.style.display).to.equal('none');
+        const spans = scryRenderedDOMComponentsWithTag(component, 'span');
+        expect(spans).to.have.length(2);
     });
 
     it('error is displayed when the state has error', () => {
@@ -65,8 +65,8 @@ describe('<SiteAdd/>', () => {
             <SiteAdd user={null} site={{longUrl: 'xxxx'}} addSite={null} />
         );
         component.setState({'longUrlIsValid': false});
-        const div = findRenderedDOMComponentWithClass(component, 'validation-error');
-        expect(div.style.display).to.not.equal('none');
+        const spans = scryRenderedDOMComponentsWithTag(component, 'span');
+        expect(spans).to.have.length(1);
     });
 
 });

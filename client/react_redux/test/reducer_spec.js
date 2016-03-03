@@ -39,10 +39,11 @@ describe('reducer', () => {
 
     it('RESET_ERROR', () => {
         const initialState = fromJS({
-            errors: ['addTag', types.RESET_ERROR, 'listSite']
+            errors: ['addTag', types.ADD_SITE_FAIL, 'listSite']
         });
         const action = {
-            type: types.RESET_ERROR
+            type: types.RESET_ERROR,
+            error: types.ADD_SITE_FAIL
         };
         const nextState = reducer(initialState, action);
         expect(nextState.get('errors')).to.equal(List.of('addTag', 'listSite'));

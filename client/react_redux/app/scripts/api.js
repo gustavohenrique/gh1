@@ -55,7 +55,8 @@ export class SiteApi {
 export class UserApi {
 
     constructor (endpoints) {
-        this.endpoints = endpoints;
+        const window = window || null;
+        this.endpoints = endpoints || getEndpoints(window);
     }
 
     authenticate (email, password) {

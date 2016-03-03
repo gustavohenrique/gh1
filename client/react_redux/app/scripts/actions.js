@@ -60,7 +60,6 @@ export function getSites (paginationParams) {
 export function addTag (tag) {
     return (dispatch, getState) => {
         dispatch(LOADING);
-        
         const state = getState().toJS();
 
         siteApi.addTag({
@@ -92,10 +91,15 @@ export function removeTag (params) {
 
         siteApi.removeTag(params).then((response) => {
             dispatch({
-                type: types.TAG_REMOVED,
-                response: response,
+                type: types.REMOVE_TAG_SUCCESS,
+                site: response.data.site,
                 siteIndex: params.siteIndex,
-                user: state.user
+                user: state.get('user').toJS()
+            });
+        })
+        .catch((err) => {
+            dispatch({
+                type: types.REMOVE_TAG_FAIL
             });
         });
     };
@@ -141,14 +145,13 @@ export function authenticate (email, password) {
         userApi.authenticate(email, password)
         .then((response) => {
             dispatch({
-                type: types.AUTHENTICATED,
-                response: response
+                type: types.AUTHENTICATE_SUCCESS,
+                user: response.data.user
             });
         })
         .catch((err) => {
             dispatch({
-                type: types.NOT_AUTHENTICATED,
-                response: err
+                type: types.AUTHENTICATE_FAIL
             });
         });
     };
@@ -156,6 +159,6 @@ export function authenticate (email, password) {
 
 export function dontRedirectAgainWhileIsAutenticated () {
     return {
-        type: types.TURN_OFF_REDIRECT
+        type: types.SET_REDIRECT_OFF
     };
 }

@@ -9,8 +9,7 @@
     "build": "npm run copy-html-prod && NODE_ENV=production ./node_modules/.bin/webpack -p",
     "clean": "./node_modules/.bin/rimraf .tmp dist",
     "lint": "./node_modules/.bin/eslint app/scripts/**/*.js app/scripts/**/*.jsx tests/**/*.js; exit 0",
-    "test": "./node_modules/.bin/mocha --compilers js:babel-core/register --require ./test/test_helper.js 'test/reducer_spec.js'",
-    "teste": "./node_modules/.bin/mocha --compilers js:babel-core/register --require ./test/test_helper.js 'test/**/*.@(js|jsx)'",
+    "test": "./node_modules/.bin/mocha --compilers js:babel-core/register --require ./test/test_helper.js 'test/**/*_spec.@(js|jsx)'",
     "test:watch": "npm test -- --watch"
   },
   "author": "Gustavo Henrique <gustavo@gustavohenrique.net>",

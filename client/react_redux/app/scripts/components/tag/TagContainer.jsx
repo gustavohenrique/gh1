@@ -18,7 +18,7 @@ export class Tags extends React.Component {
     render () {
         const { user, site, siteIndex } = this.props;
         const hasUserAllowedToEdit = user.id && (user.id === site.userId);
-        const shouldShowAddTagButton = true; //hasUserAllowedToEdit && site.tags.length < 3;
+        const shouldShowAddTagButton = (hasUserAllowedToEdit && site.tags.length < 3);
 
         return (
             <div>

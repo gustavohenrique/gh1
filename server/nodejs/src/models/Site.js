@@ -41,7 +41,12 @@
                 defaultValue: []
             }
         }, {
-            paranoid: false
+            paranoid: false,
+			getterMethods: {
+				shortUrl: function () {
+					return 'http://gh1.co/' + this.code;
+				}
+			}
         });
 
         return Site;
