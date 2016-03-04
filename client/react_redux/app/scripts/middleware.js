@@ -7,4 +7,4 @@ export default store => next => action => {
         action.loading = loading;
         return next(action);
     }
-}
+};

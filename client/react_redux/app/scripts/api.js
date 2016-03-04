@@ -21,7 +21,7 @@ export class SiteApi {
         }
 
         if (pagination.perPage > 0) {
-           query.perPage = pagination.perPage;
+            query.perPage = pagination.perPage;
         }
 
         return axios.get(this.endpoints.SITES, { params: query });
@@ -33,7 +33,7 @@ export class SiteApi {
         return this._update(site, user);
     }
 
-    removeTag (params, callback) {
+    removeTag (params) {
         const { site, tag, index, user } = params;
         if (site.tags[index] === tag) {
             site.tags.splice(index, 1);

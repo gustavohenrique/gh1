@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 
 
@@ -27,7 +27,7 @@ export default class TopBar extends React.Component {
                             <Link to="list">List</Link>
                         </li>
                     </ul>
-                    <ul className="nav navbar-nav navbar-right" style={{marginRight: "0"}}>
+                    <ul className="nav navbar-nav navbar-right" style={{marginRight: '0'}}>
                         <li className={path === 'auth' ? 'active' : ''}>
                             <Link to="auth">
                                 <span className="glyphicon glyphicon-user" aria-hidden="true" />
@@ -39,3 +39,7 @@ export default class TopBar extends React.Component {
         );
     }
 }
+
+TopBar.propTypes ={
+    path: PropTypes.string.isRequired
+};

@@ -14,13 +14,15 @@ export function convertToDate (str) {
     return yyyy + '-' + month + '-' + day;
 }
 
+/*eslint no-undef: 0*/
 export function getEndpoints () {
     let config = {
         SHORT_URL: 'http://gh1.co/',
         BASE_API_URL: 'https://gh1.herokuapp.com'
     };
 
-    if (__DEV__) {
+    if (__DEV__ === true) {
+        console.log('**** Using __DEV__ endpoints ****');
         config = {
             SHORT_URL: 'http://gh1.co/',
             BASE_API_URL: 'http://localhost:5000'

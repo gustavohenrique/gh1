@@ -11,7 +11,7 @@ const LOADING = {
 };
 
 export function addSite (site) {
-    return (dispatch, getState) => {
+    return (dispatch) => {
         dispatch(LOADING);
         
         siteApi.create(site).then((response) => {
@@ -20,7 +20,7 @@ export function addSite (site) {
                 site: response.data.site
             });
         })
-        .catch ((err) => {
+        .catch (() => {
             dispatch({
                 type: types.ADD_SITE_FAIL
             });
@@ -49,7 +49,7 @@ export function getSites (paginationParams) {
                 }
             });
         })
-        .catch((err) => {
+        .catch(() => {
             dispatch({
                 type: types.SITE_LIST_FAIL
             });
@@ -75,7 +75,7 @@ export function addTag (tag) {
                 siteIndex: state.siteIndex
             });
         })
-        .catch((err) => {
+        .catch(() => {
             dispatch({
                 type: types.ADD_TAG_FAIL
             });
@@ -97,7 +97,7 @@ export function removeTag (params) {
                 user: state.get('user').toJS()
             });
         })
-        .catch((err) => {
+        .catch(() => {
             dispatch({
                 type: types.REMOVE_TAG_FAIL
             });
@@ -139,7 +139,7 @@ export function refreshList () {
 }
 
 export function authenticate (email, password) {
-    return (dispatch, getState) => {
+    return (dispatch) => {
         dispatch(LOADING);
 
         userApi.authenticate(email, password)
@@ -149,7 +149,7 @@ export function authenticate (email, password) {
                 user: response.data.user
             });
         })
-        .catch((err) => {
+        .catch(() => {
             dispatch({
                 type: types.AUTHENTICATE_FAIL
             });
