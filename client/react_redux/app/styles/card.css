@@ -16,6 +16,19 @@
     overflow: hidden;
 }
 
+.card > .card-header span {
+    cursor: pointer;
+}
+
+.card > .card-header textarea {
+    border: 0;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    width: 100%;
+    color: black;
+}
+
 .card > .card-content {
     padding-top: 10px;
     padding-bottom: 10px;
