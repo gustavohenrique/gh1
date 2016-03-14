@@ -3,13 +3,8 @@ import { getEndpoints } from './util';
 
 export class SiteApi {
 
-    constructor (endpoints) {
-        const window = window || null;
-        this.endpoints = endpoints || getEndpoints(window);
-    }
-
     create (site) {
-        return axios.post(this.endpoints.SITES, { longUrl: site.longUrl, userId: site.userId });
+        return axios.post(getEndpoints().SITES, { longUrl: site.longUrl, userId: site.userId });
     }
 
     find (options) {
@@ -24,7 +19,7 @@ export class SiteApi {
             query.perPage = pagination.perPage;
         }
 
-        return axios.get(this.endpoints.SITES, { params: query });
+        return axios.get(getEndpoints().SITES, { params: query });
     }
 
     addTag (params) {
@@ -41,8 +36,13 @@ export class SiteApi {
         }
     }
 
+    updateSite (params) {
+        const { site, user } = params;
+        return this._update(site, user);
+    }
+
     _update (site, user) {
-        const url = this.endpoints.SITES + '/' + site.id;
+        const url = getEndpoints().SITES + '/' + site.id;
         return axios.put(url, site, {
             headers: {
                 'Content-Type': 'application/json',
@@ -54,13 +54,8 @@ export class SiteApi {
 
 export class UserApi {
 
-    constructor (endpoints) {
-        const window = window || null;
-        this.endpoints = endpoints || getEndpoints(window);
-    }
-
     authenticate (email, password) {
-        const url = this.endpoints.USERS + '/authenticate';
+        const url = getEndpoints().USERS + '/authenticate';
         return axios.post(url, { email: email, password: password });
     }
 }

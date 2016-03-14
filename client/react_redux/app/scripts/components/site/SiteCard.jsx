@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import QRCode from 'qrcode.react';
 import { convertToDate } from '../../util';
 import { TagContainer } from '../tag/TagContainer.jsx';
+import SiteTitle from './SiteTitle.jsx';
 
 export default class SiteCard extends React.Component {
 
@@ -12,7 +13,7 @@ export default class SiteCard extends React.Component {
             <div className="col-sm-4">
                 <div className="card well">
                     <div className="card-header">
-                        {site.title}
+                        <SiteTitle key={site.id} user={user} site={site} siteIndex={siteIndex} />
                     </div>
                     <div className="card-content">
                         <div className="card-meta">

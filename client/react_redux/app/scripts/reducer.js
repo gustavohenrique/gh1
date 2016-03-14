@@ -56,9 +56,18 @@ export default function (state = INITIAL_STATE, action) {
             .set('loading', false);
     }
 
+    case types.SITE_UPDATE_SUCCESS: {
+        let sites = state.get('sites').toJS();
+        sites[action.siteIndex] = action.site;
+        return state.set('sites', fromJS(sites))
+            .set('loading', false);
+    }
+
     case types.ADD_TAG_FAIL:
     case types.REMOVE_TAG_FAIL:
+    case types.SITE_UPDATE_FAIL: {
         return appendError(state, action.type);
+    }
 
     case types.RESET_ERROR: {
         const errors = state.get('errors');

@@ -57,6 +57,25 @@ export function getSites (paginationParams) {
     };
 }
 
+export function updateSite (params) {
+    return (dispatch, getState) => {
+        dispatch(LOADING);
+        siteApi.updateSite(params).then((response) => {
+            dispatch({
+                type: types.SITE_UPDATE_SUCCESS,
+                site: response.data.site,
+                siteIndex: params.siteIndex,
+                user: getState().get('user').toJS()
+            });
+        })
+        .catch(() => {
+            dispatch({
+                type: types.SITE_UPDATE_FAIL
+            });
+        });
+    };
+}
+
 export function addTag (tag) {
     return (dispatch, getState) => {
         dispatch(LOADING);

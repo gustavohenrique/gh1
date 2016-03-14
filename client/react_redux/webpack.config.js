@@ -5,7 +5,8 @@ module.exports = {
   entry: [
     'webpack-dev-server/client?http://localhost:8080',
     'webpack/hot/only-dev-server',
-    './app/scripts/index.jsx'
+    './app/scripts/index.jsx',
+    './app/styles/card.css'
   ],
   module: {
     loaders: [{
