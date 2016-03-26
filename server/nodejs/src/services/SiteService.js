@@ -9,8 +9,18 @@ var httpUtil = require('../util/httpUtil');
                 order: [
                     ['createdAt', 'DESC']
                 ],
-                where: {isPublic: true}
+                where: {
+					isPublic: true,
+				    userId: {
+					    $gt: 0
+					}
+				}
             };
+
+			var all = req.params.all;
+			if (all) {
+				delete query.where.userId;
+			}
 
             var fields = req.params.fields;
             if (fields) {
@@ -62,9 +72,23 @@ var httpUtil = require('../util/httpUtil');
             });
         };
 
+		this.getTags = function (req, res) {
+			var func = models.Site.getTags();
+			if (req.user && req.user.id > 0) {
+				func = models.Site.getTagsByUser(req.user);
+			}
+			func.then(function (tags) {
+			    res.send({ tags: tags, total: tags.length });
+			})
+			.catch(function (err) {
+                res.send(400, {
+                    errors: [err.message]
+                });
+			});
+		};
+
         this.redirect = function (req, res, next) {
             var code = req.params.code;
-            
             models.Site.findOne({ where: { code: code }}).then(function (site) {
                 site.increment('hits');
                 res.redirect(301, site.longUrl, next);
@@ -113,11 +137,9 @@ var httpUtil = require('../util/httpUtil');
             })
             .then(function (site) {
                 if (site.$options.isNewRecord) {
-                    return httpUtil.scrapAndAddTitle(site, longUrl);
+                    httpUtil.scrapAndAddTitle(site, longUrl);
                 }
-                else {
-                    return site;
-                }
+				return site;
             })
             .then(function (site) {
                 res.send(status, {

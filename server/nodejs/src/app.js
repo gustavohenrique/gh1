@@ -53,6 +53,7 @@ function createServer() {
 
         .set('/sites', 'GET', siteService.find)
         .set('/sites', 'POST', siteService.create)
+        .set('/sites/tags', 'GET', siteService.getTags)
         .set('/sites/:id', 'PUT', siteService.update, true)
         .set('/sites/:id', 'DEL', siteService.destroy)
 

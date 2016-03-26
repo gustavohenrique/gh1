@@ -10,7 +10,10 @@
   "scripts": {
     "start": "node index.js",
     "local": "DATABASE_URL=$npm_package_database_dev nodemon index.js",
-    "test": "DATABASE_URL=$npm_package_database_test mocha --recursive -R spec",
+    "test": "DATABASE_URL=$npm_package_database_test ./node_modules/.bin/mocha --recursive -R spec",
+	"debug": "./node_modules/.bin/node-inspector",
+    "test:debug": "DATABASE_URL=$npm_package_database_test ./node_modules/.bin/mocha --recursive -R spec --debug-brk test/site.spec.js",
+    "teste": "DATABASE_URL=$npm_package_database_test ./node_modules/.bin/mocha --recursive -R spec -- test/site.spec.js",
     "test:xunit": "npm run test -- --reporter xunit",
     "coverage": "DATABASE_URL=$npm_package_database_test ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- -R spec; exit 0",
     "lint": "./node_modules/.bin/jshint ./src/**/*.js; exit 0",
@@ -48,6 +51,7 @@
     "istanbul": "^0.4.2",
     "jshint": "^2.9.1",
     "mocha": "^2.4.5",
+    "node-inspector": "^0.12.7",
     "sequelize-fixtures": "^0.4.8",
     "supertest": "^1.2.0"
   }

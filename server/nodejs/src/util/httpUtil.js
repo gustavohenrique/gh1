@@ -22,7 +22,7 @@ var Promise = require('bluebird');
     }
 
     function scrapAndAddTitle (site, uri) {
-        return new Promise(function (resolve, reject) {
+        // return new Promise(function (resolve, reject) {
             var client = http;
             var parts = url.parse(uri, true);
             if (parts.protocol === 'https:') {
@@ -31,8 +31,7 @@ var Promise = require('bluebird');
 
             client.get(uri, function (response) {
                 if (response.statusCode !== 200) {
-                    // throw new Error('URL not found. HTTP status is ' + response.statusCode);
-                    reject(site);
+                    // reject(new Error('URL not found. HTTP status is ' + response.statusCode));
                     return;
                 }
 
@@ -46,18 +45,18 @@ var Promise = require('bluebird');
 
                 response.on('end', function () {
                     if (site.title) {
-                        resolve(site.save());
+                        // resolve(site.save());
+                        site.save();
                     }
-                    else {
-                        resolve(site);
-                    }
+                    // else {
+                    //    resolve(site);
+                    // }
                 });
-                response.on('error', function () {
-                    reject(new Error('response error'));
-                });
+                // response.on('error', function () {
+                    // reject(new Error('response error'));
+                // });
             });
-        });
-        
+        //});
     }
 
     module.exports = {

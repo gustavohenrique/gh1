@@ -24,15 +24,24 @@ describe('Site API', function() {
         })
     });
 
+	describe('Tags', function () {
+		it('return all tags', function (done) {
+			client.get('/sites/tags?all=true').end(function (err, res) {
+				expect(res.status).to.equal(200);
+				var tags = res.body.tags;
+				expect(tags.length).to.equal(19);
+				done();
+			});
+		});
+	});
+/*
     describe('Find', function () {
-        
         it('returns all public sites if no filter is specified', function (done) {
-            client.get('/sites').end(function (err, res) {
+            client.get('/sites?all=true').end(function (err, res) {
                 expect(res.status).to.equal(200);
                 expect(res.body.sites).to.have.length(8);
-                
                 var site = res.body.sites[0];
-                expect(Object.keys(site)).to.have.length(12);
+                expect(Object.keys(site)).to.have.length(13);
                 expect(site.id).to.equal(8);
                 expect(site.title).to.equal('Why Everyone Should Be Moving To HTTP/2');
                 expect(site.longUrl).to.equal('http://searchengineland.com/everyone-moving-http2-236716');
@@ -43,19 +52,30 @@ describe('Site API', function() {
             });
         });
 
+        it('returns all public sites that have the userId', function (done) {
+            client.get('/sites').end(function (err, res) {
+                expect(res.status).to.equal(200);
+                expect(res.body.sites).to.have.length(2);
+                var site = res.body.sites[0];
+                expect(Object.keys(site)).to.have.length(13);
+                expect(site.id).to.equal(3);
+                done();
+            });
+        });
+
         it('returns only the value of the specified field', function (done) {
-            client.get('/sites?fields=code').end(function (err, res) {
+            client.get('/sites?fields=code&all=true').end(function (err, res) {
                 expect(res.status).to.equal(200);
                 expect(res.body.sites).to.have.length(8);
 
                 var site = res.body.sites[0];
-                expect(Object.keys(site)).to.have.length(1);
+                expect(Object.keys(site)).to.have.length(2);
                 done();
             });
         });
 
         it('should paginates the result', function (done) {
-            client.get('/sites?page=2&perPage=2').end(function (err, res) {
+            client.get('/sites?page=2&perPage=2&all=true').end(function (err, res) {
                 expect(res.status).to.equal(200);
                 expect(res.body.sites).to.have.length(2);
 
@@ -66,7 +86,7 @@ describe('Site API', function() {
         });
 
         it('should ignore the pagination if page or perPage are not numbers', function (done) {
-            client.get('/sites?page=a&perPage=b').end(function (err, res) {
+            client.get('/sites?page=a&perPage=b&all=true').end(function (err, res) {
                 expect(res.status).to.equal(200);
                 expect(res.body.sites).to.have.length(8);
                 done();
@@ -74,7 +94,7 @@ describe('Site API', function() {
         });
 
         it('should sort the result by field in desc order', function (done) {
-            client.get('/sites?sort=-id').end(function (err, res) {
+            client.get('/sites?sort=-id&all=true').end(function (err, res) {
                 expect(res.status).to.equal(200);
                 expect(res.body.sites).to.have.length(8);
 
@@ -92,7 +112,7 @@ describe('Site API', function() {
         });
 
         it('returns all sites that contains the tag', function (done) {
-            client.get('/sites?tag=developer').end(function (err, res) {
+            client.get('/sites?tag=developer&all=true').end(function (err, res) {
                 expect(res.status).to.equal(200);
                 expect(res.body.sites).to.have.length(5);
                 var site = res.body.sites[0];
@@ -191,7 +211,6 @@ describe('Site API', function() {
                     done();
                 });
         });
-        
     });
 
     describe('Update', function () {
@@ -235,16 +254,14 @@ describe('Site API', function() {
                 .send(fake)
                 .expect(403, done);
         });
-        
     });
 
     describe('Destroy', function () {
-        
         it('deletes and returns a site by id', function (done) {
             client.delete('/sites/1').end(function (err, res) {
                 expect(res.status).to.equal(200);
                 var site = res.body.site;
-                expect(Object.keys(site)).to.have.length(12);
+                expect(Object.keys(site)).to.have.length(13);
                 expect(site.id).to.equal(1);
                 expect(site.title).to.equal('22 Essential CSS Recipes');
                 expect(site.longUrl).to.equal('http://ipestov.com/22-essential-css-recipes/');
@@ -265,7 +282,6 @@ describe('Site API', function() {
     });
 
     describe('Redirect', function () {
-        
         it('should redirect to default url', function (done) {
             client.get('/').expect(301, done);
         });
@@ -281,5 +297,5 @@ describe('Site API', function() {
         });
 
     });
-
+*/
 });
