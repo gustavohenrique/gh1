@@ -1,6 +1,6 @@
 {
   "name": "gh1",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Web client using React + Redux for the gh1.co API",
   "scripts": {
     "copy-html-dev": "cp app/dev.html dist/index.html && cp app/styles/card.css dist/",
