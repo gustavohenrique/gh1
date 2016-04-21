@@ -27,7 +27,7 @@ export default class TopBar extends React.Component {
                             <Link to="list">List</Link>
                         </li>
                     </ul>
-                    <ul className="nav navbar-nav navbar-right" style={{marginRight: '0'}}>
+                    <ul className="nav navbar-nav navbar-right" style={{marginRight: '0px'}}>
                         <li className={path === 'auth' ? 'active' : ''}>
                             <Link to="auth">
                                 <span className="glyphicon glyphicon-user" aria-hidden="true" />

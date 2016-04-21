@@ -59,7 +59,7 @@ export class SiteAdd extends React.Component {
 
         return (
             <div className="tab-pane active in">
-                <div className={"well form-group"} style={{margin: "0"}}>
+                <div className={"well form-group"} style={{margin: "0px"}}>
                     <input ref="longUrl" onKeyDown={this.handleOnKeyDownAddSite} type="text" className="form-control long-url" placeholder="URL for..." />
                     {InvalidUrl}
                     <span className="input-group-btn">
