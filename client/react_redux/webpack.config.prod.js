@@ -18,7 +18,7 @@ module.exports = {
     }]
   },
   resolve: {
-    extensions: ['', '.js', '.jsx'],
+    extensions: ['', '.js', '.jsx', '.scss'],
     modulesDirectories: ['app', 'node_modules']
   },
   output: {

@@ -1,8 +1,10 @@
 import React, { PropTypes } from 'react';
 import QRCode from 'qrcode.react';
+import CopyToClipboard from 'react-copy-to-clipboard';
 import { convertToDate } from '../../util';
 import { TagContainer } from '../tag/TagContainer.jsx';
 import SiteTitle from './SiteTitle.jsx';
+import Twitter from '../Twitter.jsx';
 
 export default class SiteCard extends React.Component {
 
@@ -10,32 +12,38 @@ export default class SiteCard extends React.Component {
         const { user, site, siteIndex } = this.props;
 
         return (
-            <div className="col-sm-4">
-                <div className="card well">
-                    <div className="card-header">
+            <div className="card" style={{height: "325px"}}>
+                <div className="content">
+                    <div className="header">
                         <SiteTitle key={site.id} user={user} site={site} siteIndex={siteIndex} />
                     </div>
-                    <div className="card-content">
-                        <div className="card-meta">
-                            <span>Last click on {convertToDate(site.lastAccessAt)}</span>
+                    <div className="meta">
+                        <span className="right floated time">{site.hits} Hits</span>
+                        <span className="date">Last click on {convertToDate(site.lastAccessAt)}</span>
+                    </div>
+                    <div className="description">
+                        <TagContainer ref="tags" user={user} site={site} siteIndex={siteIndex} />
+                    </div>
+                    <div className="extra content">
+                        <CopyToClipboard text={site.longUrl}>
+                            <div style={{marginTop: "15px", textAlign: "center"}}>
+                                <QRCode value={site.shortUrl} size={80} />
+                            </div>
+                        </CopyToClipboard>
+                        
+                        <div className="ui success message" style={{height: "50px"}}>
+                            <div className="header" style={{textAlign: "center"}}>
+                                <a style={{float: "left"}} href={site.shortUrl} title={site.longUrl} target="_blank">
+                                    <h4>{site.shortUrl}</h4>
+                                </a>
+                                <div style={{float: "right", fontSize: "1.2rem"}}>
+                                    <CopyToClipboard text={site.shortUrl}>
+                                        <a title="Copy it"><i className="copy icon"/></a>
+                                    </CopyToClipboard>
+                                    <Twitter text={site.title} tags={site.tags} />
+                                </div>
+                            </div>
                         </div>
-                        <div className="card-tags">
-                            <TagContainer ref="tags" user={user} site={site} siteIndex={siteIndex} />
-                        </div>
-
-                    </div>
-                    <div className="card-action">
-                        <ul className="tools">
-                            <li><span className="glyphicon glyphicon-eye-open"><span className="tools-item-counter"> {site.hits}</span></span></li>
-                        </ul>
-                    </div>
-                    <div className="card-qrcode">
-                        <a href={site.shortUrl} title={site.longUrl}>
-                            <QRCode value={site.shortUrl} size={100} />
-                        </a>
-                    </div>
-                    <div className="card-link alert alert-primary">
-                        <a href={site.shortUrl} title={site.longUrl} target="_blank" className="alert-link">{site.shortUrl}</a>
                     </div>
                 </div>
             </div>

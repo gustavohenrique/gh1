@@ -4,6 +4,7 @@ import PureRenderMixin from 'react-addons-pure-render-mixin';
 
 import * as util from '../../util';
 import SiteSimpleCard from './SiteSimpleCard.jsx';
+import Message from '../Message.jsx';
 import * as actions from '../../actions';
 import { ADD_SITE_FAIL } from '../../types';
 
@@ -53,21 +54,28 @@ export class SiteAdd extends React.Component {
 
     render () {
         const { site, hasError } = this.props;
-        const Success = (site && site.shortUrl) ? (<SiteSimpleCard ref="card" site={site} />) : (<div />);
-        const InvalidUrl = this.state.longUrlIsValid ? (<span />) : (<div style={{fontSize: "12px", color: "red", marginBottom: "10px"}}>Please enter a valid URL address</div>);
-        const Fail = hasError ? (<div className="alert alert-danger" style={{marginTop: "10px"}}>Cannot be possible to add this site.</div>) : (<div />);
+        const shouldShowError = hasError || ! this.state.longUrlIsValid;
+
+        let field = 'field error';
+        let errorMessage = 'Please enter a valid URL address';
+        if (this.state.longUrlIsValid) {
+            field = 'field';
+            errorMessage = 'Cannot be possible to add this site.';
+        }
+
+        const Success = (site && site.shortUrl && ! shouldShowError) ? (<SiteSimpleCard ref="card" site={site} />) : (<div />);
+        const Fail = shouldShowError ? (<Message ref="message" header={errorMessage} message="" type="error" />) : null;
 
         return (
-            <div className="tab-pane active in">
-                <div className={"well form-group"} style={{margin: "0px"}}>
-                    <input ref="longUrl" onKeyDown={this.handleOnKeyDownAddSite} type="text" className="form-control long-url" placeholder="URL for..." />
-                    {InvalidUrl}
-                    <span className="input-group-btn">
-                        <button onClick={this.handleOnClickAddSite} className="btn btn-shorten btn-raised btn-primary" type="button">Shorten</button>
-                    </span>
+            <div className="ui segment no-border">
+                <div className={"ui fluid action labeled input " + field}>
+                    <input ref="longUrl" onKeyDown={this.handleOnKeyDownAddSite} type="text" style={{borderRadius: "0px"}} placeholder="URL for..." />
+                    <button onClick={this.handleOnClickAddSite} className="ui primary button" type="button">Shorten</button>
                 </div>
-                {Success}
-                {Fail}
+                <div style={{marginTop: "10px"}}>
+                    {Fail}
+                    {Success}
+                </div>
             </div>
         );
     }

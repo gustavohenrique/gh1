@@ -14,12 +14,13 @@ module.exports = {
       exclude: /node_modules/,
       loader: 'react-hot!babel'
     }, {
-      test: /\.css$/,
-      loader: 'style!css!postcss'
+      test: /(\.scss|\.css)$/,
+      loaders: ['style', 'css', 'sass']
+      // loader: 'style!css!postcss'
     }]
   },
   resolve: {
-    extensions: ['', '.js', '.jsx']
+    extensions: ['', '.js', '.jsx', '.scss']
   },
   output: {
     path: __dirname + '/dist',

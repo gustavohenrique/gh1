@@ -41,21 +41,29 @@ export class LoginContainer extends React.Component {
 
     render () {
         const { user, hasError } = this.props;
-        const Panel = (user && user.isAuthenticated) ? (
-            <div className="well logged">
-                <h3>Logged as {user && user.email ? user.email : ''}</h3>
-            </div>) :
-            (<div className="well login">
-                <h3>Authentication</h3>
-                <div className="form-group" style={{margin: "0"}}>
-                    <input type="email" ref="email" className="form-control email" placeholder="Email" />
+        const Panel = (<div className="ui center aligned grid">
+                <div className="column">
+                    <h3>Authentication</h3>
+                    <div className="ui large form">
+                        <div className="ui segment no-border">
+                            <div className="field">
+                                <div className="ui left icon input">
+                                    <i className="user icon"></i>
+                                    <input type="email" ref="email" placeholder="Email address" />
+                                </div>
+                            </div>
+                            <div className="field">
+                                <div className="ui left icon input">
+                                    <i className="lock icon"></i>
+                                    <input type="password" ref="password" onKeyDown={this.handleOnKeyDownPasswordInput} placeholder="Password" />
+                                </div>
+                            </div>
+                            <div id="btnAuthenticate" onClick={this.handleOnClickAuthenticate} className="ui fluid large violet submit button">
+                                Login
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div className="form-group" style={{margin: "0"}}>
-                    <input type="password" ref="password" onKeyDown={this.handleOnKeyDownPasswordInput} className="form-control password" placeholder="Password" />
-                </div>
-                <span className="input-group-btn">
-                    <button id="btnAuthenticate" onClick={this.handleOnClickAuthenticate} className="btn btn-raised btn-primary" type="button">Login</button>
-                </span>
             </div>);
 
         const Fail = hasError ? (<div className="alert alert-danger" style={{marginTop: "10px"}}>

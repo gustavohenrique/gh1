@@ -26,7 +26,7 @@ class TagLabel extends React.Component {
 
     render () {
         return (
-            <a title="Double click to remove" onDoubleClick={this.removeTag} className="tag label label-info">{this.props.tag}</a>
+            <a title="Double click to remove" onDoubleClick={this.removeTag} className="ui purple basic label" style={{marginBottom: "3px"}}>{this.props.tag}</a>
         );
     }
 }

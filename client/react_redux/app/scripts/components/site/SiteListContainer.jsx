@@ -17,9 +17,8 @@ class SiteListContainer extends React.Component {
         const NoResults = (sites.length === 0) ? (<h2>No results found.</h2>) : (<span />);
 
         return (
-            <div className="well">
-                <TagModal />
-                <div className="row center-block" style={{textAlign: "center"}}>
+            <div className="ui segment no-border">
+                <div className="ui header centered align">
                     <Pagination pagination={pagination} getSites={getSites} />
                     {NoResults}
                 </div>

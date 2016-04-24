@@ -15,6 +15,7 @@ export function convertToDate (str) {
 }
 
 /*eslint no-undef: 0*/
+/*eslint no-console: 0*/
 export function getEndpoints () {
     let config = {
         SHORT_URL: 'http://gh1.co/',
@@ -56,10 +57,10 @@ export function isValidUrl (url) {
     }
 }
 
-export function showBackgroundModal () {
-    document.querySelector('#backgroundModal').classList.remove('hidden');
+export function showModal () {
+    $('#tagModal').modal({ closable: false }).modal('show');
 }
 
-export function hideBackgroundModal () {
-    document.querySelector('#backgroundModal').classList.add('hidden');
+export function hideModal () {
+    $('#tagModal').modal('hide');
 }

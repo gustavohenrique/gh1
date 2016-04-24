@@ -3,11 +3,11 @@
   "version": "0.0.3",
   "description": "Web client using React + Redux for the gh1.co API",
   "scripts": {
-    "copy-dev": "cp app/dev.html dist/index.html && cp app/styles/*.css dist/ && cp -r app/fonts dist/",
-    "copy-prod": "cp app/prod.html dist/index.html && cp app/styles/*.css dist/ && cp -r app/fonts dist/",
-    "start": "npm run copy-dev && cp -r ./node_modules/bootstrap/dist/fonts dist/ && ./node_modules/.bin/webpack-dev-server --progress --colors",
-    "build": "npm run copy-prod && NODE_ENV=production ./node_modules/.bin/webpack -p --display-error-details --config webpack.config.prod.js",
-    "clean": "./node_modules/.bin/rimraf .tmp dist",
+    "copy-dev": "cp app/dev.html dist/index.html && cp app/styles/*.css dist/ && cp ./node_modules/jquery/dist/jquery.min.js dist/ && cp -r ./node_modules/semantic-ui/dist/themes dist/ && cp ./node_modules/semantic-ui/dist/semantic.min.js dist/",
+    "copy-prod": "cp app/prod.html dist/index.html && cp app/styles/*.css dist/",
+    "start": "npm run clean && npm run copy-dev && ./node_modules/.bin/webpack-dev-server --progress --colors",
+    "build": "npm run clean && npm run copy-prod && NODE_ENV=production ./node_modules/.bin/webpack -p --display-error-details --config webpack.config.prod.js",
+    "clean": "./node_modules/.bin/rimraf .tmp dist && mkdir dist",
     "lint": "./node_modules/.bin/eslint app/scripts/**/*.js app/scripts/**/*.jsx tests/**/*.js; exit 0",
     "test": "./node_modules/.bin/mocha --compilers js:babel-core/register --require ./test/test_helper.js 'test/**/*_spec.@(js|jsx)'",
     "test:watch": "npm test -- --watch"
@@ -22,7 +22,6 @@
     ]
   },
   "dependencies": {
-    "autoprefixer": "^6.3.6",
     "axios": "^0.9.1",
     "classnames": "^2.2.3",
     "immutable": "^3.8.1",
@@ -36,9 +35,11 @@
     "react-redux": "^4.4.5",
     "react-router": "^2.3.0",
     "redux": "^3.5.1",
-    "redux-thunk": "^2.0.1"
+    "redux-thunk": "^2.0.1",
+    "semantic-ui": "^2.1.8"
   },
   "devDependencies": {
+    "autoprefixer": "^6.3.6",
     "babel-cli": "^6.7.7",
     "babel-core": "^6.7.7",
     "babel-eslint": "^6.0.3",

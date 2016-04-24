@@ -1,45 +1,40 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
+import { connect } from 'react-redux';
 
 
-export default class TopBar extends React.Component {
+export class TopBar extends React.Component {
 
     render() {
-        const { path } = this.props;
+        const { path, user } = this.props;
+        const authIcon = (user && user.isAuthenticated) ? 'unlock icon' : 'lock icon';
 
         return (
-            <nav className="navbar navbar-default navbar-fixed-top navbar-inverse">
-                <div className="navbar-header">
-                    <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                        <span className="sr-only">Toggle navigation</span>
-                        <span className="icon-bar"></span>
-                        <span className="icon-bar"></span>
-                        <span className="icon-bar"></span>
-                    </button>
-                    <a className="navbar-brand">GH1</a>
+            <div className="ui fixed inverted menu">
+                <div className="ui container">
+                    <a className="header item">GH1</a>
+                    <Link className={path === 'new' || path === undefined ? 'item active' : 'item'} to="new">New</Link>
+                    <Link className={path === 'list' ? 'item active' : 'item'} to="list">List</Link>
+                    <div className="right menu">
+                        <Link className={path === 'auth' ? 'item active' : 'item'} to="auth">
+                            <i className={authIcon}></i>
+                        </Link>
+                    </div>
                 </div>
-                <div id="navbar" className="navbar-collapse collapse">
-                    <ul className="nav navbar-nav">
-                        <li className={path === 'new' || path === undefined  ? 'active' : ''}>
-                            <Link to="new">New</Link>
-                        </li>
-                        <li className={path === 'list' ? 'active' : ''}>
-                            <Link to="list">List</Link>
-                        </li>
-                    </ul>
-                    <ul className="nav navbar-nav navbar-right" style={{marginRight: '0px'}}>
-                        <li className={path === 'auth' ? 'active' : ''}>
-                            <Link to="auth">
-                                <span className="glyphicon glyphicon-user" aria-hidden="true" />
-                            </Link>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
+            </div>
         );
     }
 }
 
 TopBar.propTypes ={
-    path: PropTypes.string.isRequired
+    path: PropTypes.string.isRequired,
+    user: PropTypes.object
 };
+
+const mapStateToProps = (state) => {
+    return {
+        user: state.get('user').toJS()
+    };
+};
+
+export default connect(mapStateToProps)(TopBar);

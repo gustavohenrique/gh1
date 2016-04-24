@@ -25,8 +25,8 @@ export class Tags extends React.Component {
                 {site.tags.map(function (tag, index) {
                     return (tag !== '') ? <TagLabel key={index} index={index} tag={tag} site={site} siteIndex={siteIndex} user={user} /> : null;
                 })}
-                <a onClick={this.handleOnClickOpenModal} title="Add tag (max allowed is 3)" style={shouldShowAddTagButton ? null : {display:"none"}} className="tag btn btn-primary btn-xs">
-                    + <i className="glyphicon glyphicon-tags"></i>
+                <a onClick={this.handleOnClickOpenModal} title="Add tag (max allowed is 3)" style={shouldShowAddTagButton ? {color: "#9627ba", padding: "5px"} : {display:"none"}}>
+                    <i className="plus icon"></i>
                 </a>
             </div>
         );

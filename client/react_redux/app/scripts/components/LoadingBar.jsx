@@ -6,10 +6,9 @@ class LoadingBar extends React.Component {
     render () {
         const { loading } = this.props;
         let width = loading ? '100%' : '0%';
-        
         return (
-            <div className="progress active progress-striped" style={{marginBottom: 0}}>
-                <div id="progressBar" className="progress-bar progress-bar-success" style={{width: width}} />
+            <div className="ui tiny violet active progress">
+                <div id="progressBar" className="bar" style={{width: width, minWidth: '0px', borderRadius: '0px'}} />
             </div>
         );
     }

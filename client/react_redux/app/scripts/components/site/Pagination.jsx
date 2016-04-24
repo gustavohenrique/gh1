@@ -30,26 +30,12 @@ export default class Pagination extends React.Component {
 
     render () {
         return (
-            <nav>
-                <ul className="pagination" style={{margin: 0}}>
-                    <li>
-                        <a className="previous" onClick={this.previousPage}>
-                            <span className="glyphicon glyphicon-arrow-left"></span>
-                        </a>
-                    </li>
-                    <li><a className="current">{this.props.pagination.current}</a></li>
-                    <li>
-                        <a className="next" onClick={this.nextPage}>
-                            <span className="glyphicon glyphicon-arrow-right"></span>
-                        </a>
-                    </li>
-                    <li>
-                        <a className="refresh" onClick={this.refreshFirstPage}>
-                            <span className="glyphicon glyphicon-refresh"></span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
+            <div className="ui pagination menu">
+                <a className="icon item" onClick={this.previousPage}><i className="left arrow icon"></i></a>
+                <span className="icon disabled item">{this.props.pagination.current}</span>
+                <a className="icon item" onClick={this.nextPage}><i className="right arrow icon"></i></a>
+                <a className="icon item" onClick={this.refreshFirstPage}><i className="refresh icon"></i></a>
+            </div>
         );
     }
 }

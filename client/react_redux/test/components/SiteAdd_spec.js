@@ -5,9 +5,7 @@ import { expect } from 'chai';
 import sinon from 'sinon';
 import {
     renderIntoDocument,
-    findRenderedDOMComponentWithClass,
     scryRenderedDOMComponentsWithTag,
-    scryRenderedDOMComponentsWithClass,
     Simulate
 } from 'react-addons-test-utils';
 
@@ -17,21 +15,20 @@ describe('<SiteAdd/>', () => {
         const component = renderIntoDocument(
             <SiteAdd user={null} site={null} />
         );
-        const input = scryRenderedDOMComponentsWithClass(component, 'long-url');
-        const button = scryRenderedDOMComponentsWithClass(component, 'btn-shorten');
-        const card = ReactDOM.findDOMNode(component.refs.card);
+        const input = scryRenderedDOMComponentsWithTag(component, 'input');
+        const button = scryRenderedDOMComponentsWithTag(component, 'button');
+        // const card = ReactDOM.findDOMNode(component.refs.card);
 
         expect(input.length).to.equal(1);
         expect(button.length).to.equal(1);
-        expect(card).to.be.not.ok;
     });
 
     it('renders an input, a button and the card when site has shortUrl', () => {
         const component = renderIntoDocument(
             <SiteAdd user={null} site={{shortUrl: 'http://gh1.co/xpto'}} />
         );
-        const input = scryRenderedDOMComponentsWithClass(component, 'long-url');
-        const button = scryRenderedDOMComponentsWithClass(component, 'btn-shorten');
+        const input = scryRenderedDOMComponentsWithTag(component, 'input');
+        const button = scryRenderedDOMComponentsWithTag(component, 'button');
         const card = ReactDOM.findDOMNode(component.refs.card);
 
         expect(input.length).to.equal(1);
@@ -56,8 +53,8 @@ describe('<SiteAdd/>', () => {
             <SiteAdd user={null} site={null} addSite={null} />
         );
         component.setState({'longUrlIsValid': true});
-        const spans = scryRenderedDOMComponentsWithTag(component, 'span');
-        expect(spans).to.have.length(2);
+        const message = ReactDOM.findDOMNode(component.refs.message);
+        expect(message).to.be.not.ok;
     });
 
     it('error is displayed when the state has error', () => {
@@ -65,8 +62,9 @@ describe('<SiteAdd/>', () => {
             <SiteAdd user={null} site={{longUrl: 'xxxx'}} addSite={null} />
         );
         component.setState({'longUrlIsValid': false});
-        const spans = scryRenderedDOMComponentsWithTag(component, 'span');
-        expect(spans).to.have.length(1);
+        // const spans = scryRenderedDOMComponentsWithTag(component, 'span');
+        const message = ReactDOM.findDOMNode(component.refs.message);
+        expect(message).to.be.ok;
     });
 
 });

@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
-import { showBackgroundModal, hideBackgroundModal } from '../../util';
+import { showModal, hideModal } from '../../util';
 import { ADD_TAG_FAIL } from '../../types';
 
 class TagModal extends React.Component {
@@ -15,10 +15,10 @@ class TagModal extends React.Component {
 
     componentWillReceiveProps (nextProps) {
         if (nextProps.site && nextProps.site.id) {
-            showBackgroundModal();
+            showModal();
         }
         else {
-            hideBackgroundModal();
+            hideModal();
         }
     }
 
@@ -50,34 +50,21 @@ class TagModal extends React.Component {
 
     render () {
         const { site, hasError } = this.props;
-        const component = (site.id > 0) ? (<div id="tagModal" className="tag-modal" tabIndex="-1">
-            <div className="modal-dialog">
-                <div className="modal-content form-group">
-                    <div className="modal-header">
-                        <button onClick={this.handleOnClickCloseModal} type="button" className="close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        <h4 className="modal-title" id="tagModalLabel">Add Tag for site #{site ? site.id : ''}</h4>
-                    </div>
-                    <div className="modal-body">
-                        <input ref="tagName" onKeyDown={this.handleOnKeyDownTagNameInput} type="text" className="form-control" placeholder="Tag name" autoFocus />
-                        <div className="validation-error" style={hasError ? {fontSize: "12px", color: "red", marginBottom: "10px"} : {display: "none"}}>Error adding tag.</div>
-                
-                    </div>
-                    <div className="modal-footer" style={{marginRight: "20px"}}>
-                        <button onClick={this.handleOnclickAddTag} type="button" className="btn btn-raised btn-primary">Add</button>
-                        <button onClick={this.handleOnClickCloseModal} type="button" className="btn btn-raised btn-default">Close</button>
-                    </div>
+        const error = hasError ? 'error' : '';
+        const modal = (site.id > 0) ? (<div id="tagModal" className="ui modal">
+            <div className="header">Add Tag for site #{site ? site.id : ''}</div>
+            <div className="content">
+                <div className={"ui fluid input field " + error}>
+                    <input ref="tagName" onKeyDown={this.handleOnKeyDownTagNameInput} type="text" placeholder="Tag name" autoFocus />
                 </div>
+            </div>
+            <div className="actions">
+                <button onClick={this.handleOnClickCloseModal} type="button" className="ui button">Close</button>
+                <button onClick={this.handleOnclickAddTag} type="button" className="ui button violet">Add</button>
             </div>
         </div>) : (<span />);
 
-        return (
-            <span>
-                {component}
-            </span>
-        )
-        
+        return modal;
     }
 }
 

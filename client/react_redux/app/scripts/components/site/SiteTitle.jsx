@@ -45,11 +45,22 @@ export class SiteTitle extends React.Component {
         }
     }
 
+    cut (text) {
+        const max = 85;
+        if (text && text.length > max) {
+            return text.substr(0, max - 3) + '...';
+        }
+        if (! text) {
+            return 'Untitled';
+        }
+        return text;
+    }
+
     render () {
         const { user, site, siteIndex } = this.props;
-        let component = (<span onDoubleClick={this.handleOnDoubleClickEnterEditMode}>{site.title}</span>);
+        let component = (<span onDoubleClick={this.handleOnDoubleClickEnterEditMode}>{this.cut(site.title)}</span>);
         if (this.state.editMode) {
-            component = (<textarea onBlur={this.handleOnBlurSaveTitle} onKeyDown={this.handleOnKeyDown} defaultValue={site.title}></textarea>);
+            component = (<textarea className="title" onBlur={this.handleOnBlurSaveTitle} onKeyDown={this.handleOnKeyDown} defaultValue={site.title}></textarea>);
         }
         return (
             <div>

@@ -6,7 +6,7 @@ export default class SiteList extends React.Component {
         const { user, sites } = this.props;
         
         return (
-            <div className="row">
+            <div className="ui centered align cards full">
                 {sites.map(function (item, index) {
                     return <SiteCard key={index} user={user} site={item} siteIndex={index} />;
                 })}
