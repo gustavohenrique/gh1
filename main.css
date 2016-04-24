@@ -1,0 +1,43 @@
+.main.container {
+    margin-top: 4rem;
+}
+
+.ui.tiny.progress {
+    position: fixed;
+    top: 28px;
+    left: 0;
+    right: 0;
+    bottom: auto;
+    width: 100%;
+    z-index: 102;
+}
+
+.ui.segment.no-border {
+    border: 0px;
+    box-shadow: none;
+}
+
+.description {
+    word-wrap: break-word;
+}
+
+.ui.card>.content>.header:not(.ui), .ui.cards>.card>.content>.header:not(.ui) {
+    height: 80px;
+}
+
+textarea.title {
+    border: 0;
+    width: 100%;
+    height: 74px;
+    overflow: hidden;
+    color: gray;
+}
+
+p.social.icons {
+    font-size: 1.5rem;
+}
+
+p.social.icons a {
+    cursor: pointer;
+    color: purple;
+}
