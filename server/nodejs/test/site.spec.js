@@ -21,20 +21,42 @@ describe('Site API', function() {
             });
         }).then(function () {
             done();
-        })
+        });
     });
 
-	describe('Tags', function () {
-		it('return all tags', function (done) {
-			client.get('/sites/tags?all=true').end(function (err, res) {
-				expect(res.status).to.equal(200);
-				var tags = res.body.tags;
-				expect(tags.length).to.equal(19);
-				done();
-			});
-		});
-	});
-/*
+    describe('Tags', function () {
+        it('return all tags when no user is authenticated', function (done) {
+            client.get('/sites/tags').end(function (err, res) {
+                expect(res.status).to.equal(200);
+                var tags = res.body.tags;
+                expect(tags.length).to.equal(19);
+                done();
+            });
+        });
+
+        it('return all tags created by a specific user', function (done) {
+            client
+                .get('/sites/tags?userId=10')
+                .end(function (err, res) {
+                    expect(res.status).to.equal(200);
+                    var tags = res.body.tags;
+                    expect(tags.length).to.equal(8);
+                    done();
+                });
+        });
+
+        it('should ignore the userId when is not a number', function (done) {
+            client
+                .get('/sites/tags?userId=a')
+                .end(function (err, res) {
+                    expect(res.status).to.equal(200);
+                    var tags = res.body.tags;
+                    expect(tags.length).to.equal(19);
+                    done();
+                });
+        });
+    });
+
     describe('Find', function () {
         it('returns all public sites if no filter is specified', function (done) {
             client.get('/sites?all=true').end(function (err, res) {
@@ -297,5 +319,5 @@ describe('Site API', function() {
         });
 
     });
-*/
+
 });

@@ -74,10 +74,22 @@ var httpUtil = require('../util/httpUtil');
 
 		this.getTags = function (req, res) {
 			var func = models.Site.getTags();
-			if (req.user && req.user.id > 0) {
-				func = models.Site.getTagsByUser(req.user);
+
+            var userId = 0;
+            try {
+                userId = parseInt(req.params.userId)
+            }
+            catch(e) {}
+
+			if (userId > 0) {
+				func = models.Site.getTagsByUser({ id: userId });
 			}
-			func.then(function (tags) {
+
+			func.then(function (result) {
+                var tags = [];
+                for (var i = 0; i < result.length; i++) {
+                    tags.push(result[i].tag);
+                }
 			    res.send({ tags: tags, total: tags.length });
 			})
 			.catch(function (err) {
