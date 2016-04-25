@@ -8,7 +8,7 @@ export class SiteApi {
     }
 
     find (options) {
-        const { pagination } = options;
+        const { pagination, tag } = options;
 
         var query = {};
         if (pagination.page > 0) {
@@ -17,6 +17,10 @@ export class SiteApi {
 
         if (pagination.perPage > 0) {
             query.perPage = pagination.perPage;
+        }
+
+        if (tag) {
+            query.tag = tag;
         }
 
         return axios.get(getEndpoints().SITES, { params: query });
@@ -34,6 +38,16 @@ export class SiteApi {
             site.tags.splice(index, 1);
             return this._update(site, user);
         }
+    }
+
+    getTags (params) {
+        const { user } = params;
+        let query = {};
+        if (user && user.id > 0) {
+            query = { userId: user.id };
+        }
+        const url = getEndpoints().SITES + '/tags';
+        return axios.get(url, { params: query });
     }
 
     updateSite (params) {

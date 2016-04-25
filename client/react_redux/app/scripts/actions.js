@@ -28,13 +28,16 @@ export function addSite (site) {
     };
 }
 
-export function getSites (paginationParams) {
+export function getSites (params) {
     return (dispatch, getState) => {
         dispatch(LOADING);
 
-        const pagination = paginationParams || getState().get('pagination').toJS();
+        params = params || {};
+        const pagination = params.pagination || getState().get('pagination').toJS();
+        const tag = params.tag || getState().get('searchTag');
         siteApi.find({
-            pagination: pagination
+            pagination: pagination,
+            tag: tag
         })
         .then((response) => {
             dispatch({
@@ -121,6 +124,34 @@ export function removeTag (params) {
                 type: types.REMOVE_TAG_FAIL
             });
         });
+    };
+}
+
+export function getTags (params) {
+    return (dispatch, getState) => {
+        siteApi.getTags(params).then((response) => {
+            let tags = [];
+            const result = response.data.tags;
+            result.forEach((item) => {
+                tags.push({ title: item });
+            });
+            dispatch({
+                type: types.GET_TAGS_SUCCESS,
+                tags: tags
+            });
+        })
+        .catch(() => {
+            dispatch({
+                type: types.GET_TAGS_FAIL
+            });
+        });
+    };
+}
+
+export function setSearchTag (tag) {
+    return {
+        type: types.SET_SEARCH_TAG,
+        searchTag: tag
     };
 }
 

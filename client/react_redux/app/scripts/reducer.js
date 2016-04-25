@@ -4,6 +4,8 @@ import { fromJS } from 'immutable';
 export const INITIAL_STATE = fromJS({
     loading: false,
     sites: [],
+    tags: [],
+    searchTag: '',
     site: {},
     siteEdit: {},
     user: {},
@@ -55,6 +57,12 @@ export default function (state = INITIAL_STATE, action) {
             .set('siteEdit', fromJS(action.site))
             .set('loading', false);
     }
+
+    case types.GET_TAGS_SUCCESS:
+        return state.set('tags', fromJS(action.tags));
+
+    case types.SET_SEARCH_TAG:
+        return state.set('searchTag', action.searchTag);
 
     case types.SITE_UPDATE_SUCCESS: {
         let sites = state.get('sites').toJS();
