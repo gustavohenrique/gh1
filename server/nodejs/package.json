@@ -11,7 +11,7 @@
     "start": "node index.js",
     "local": "DATABASE_URL=$npm_package_database_dev nodemon index.js",
     "test": "DATABASE_URL=$npm_package_database_test ./node_modules/.bin/mocha --recursive -R spec",
-	  "debug": "./node_modules/.bin/node-inspector",
+    "debug": "./node_modules/.bin/node-inspector",
     "test:debug": "DATABASE_URL=$npm_package_database_test ./node_modules/.bin/mocha --recursive -R spec --debug-brk test/site.spec.js",
     "test:xunit": "npm run test -- --reporter xunit",
     "coverage": "DATABASE_URL=$npm_package_database_test ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- -R spec; exit 0",
@@ -34,7 +34,7 @@
   "author": "Gustavo Henrique",
   "license": "MIT",
   "dependencies": {
-    "bcrypt": "^0.8.6",
+    "bcrypt-nodejs": "^0.0.3",
     "bluebird": "^3.3.5",
     "follow-redirects": "0.1.0",
     "jsonwebtoken": "^5.7.0",
@@ -52,6 +52,7 @@
     "mocha": "^2.4.5",
     "node-inspector": "^0.12.8",
     "sequelize-fixtures": "^0.5.1",
-    "supertest": "^1.2.0"
+    "supertest": "^1.2.0",
+    "xunit-file": "0.0.9"
   }
 }

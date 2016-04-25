@@ -51,7 +51,7 @@ var restify = require('restify');
                 }
             })
             .catch(function (err) {
-                next(new restify.NotAuthorizedError(err.message));
+                next(new restify.NotAuthorizedError(err));
             });
         };
 
