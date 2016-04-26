@@ -3,8 +3,9 @@ import React, { PropTypes } from 'react';
 export default class Twitter extends React.Component {
 
     render () {
-        const { text, tags } = this.props;
+        const { text, url, tags } = this.props;
         let tweet = text ? text.trim() : '';
+        tweet += ' ' + url;
         if (tags && tags.length > 0) {
             tweet += ' %23' + tags.join(' %23');
         }
@@ -19,5 +20,6 @@ export default class Twitter extends React.Component {
 
 Twitter.propTypes = {
     text: PropTypes.string.isRequired,
+    url: PropTypes.string.isRequired,
     tags: PropTypes.array
 };

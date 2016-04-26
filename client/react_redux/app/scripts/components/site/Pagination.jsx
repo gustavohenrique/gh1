@@ -14,18 +14,19 @@ export default class Pagination extends React.Component {
     previousPage () {
         const previous = this.props.pagination.previous;
         const pagination = Object.assign({}, this.props.pagination, { page: previous });
-        this.props.getSites(pagination);
+        this.props.getSites({ pagination: pagination });
     }
 
     nextPage () {
         const next = this.props.pagination.next;
         const pagination = Object.assign({}, this.props.pagination, { page: next });
-        this.props.getSites(pagination);
+        console.log('next', pagination);
+        this.props.getSites({ pagination: pagination });
     }
 
     refreshFirstPage () {
         const pagination = Object.assign({}, this.props.pagination, { page: 1 });
-        this.props.getSites(pagination);
+        this.props.getSites({ pagination: pagination });
     }
 
     render () {

@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react';
 import QRCode from 'qrcode.react';
 import CopyToClipboard from 'react-copy-to-clipboard';
-import Twitter from '../Twitter.jsx';
 
 export default class SiteSimpleCard extends React.Component {
 
@@ -20,7 +19,6 @@ export default class SiteSimpleCard extends React.Component {
                         <CopyToClipboard text={site.shortUrl}>
                             <a title="Copy it"><i className="copy icon"/></a>
                         </CopyToClipboard>
-                        <Twitter text={site.title} tags={site.tags} />
                     </p>
                     <p>
                         {site.longUrl}

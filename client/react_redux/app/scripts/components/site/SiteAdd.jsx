@@ -70,7 +70,7 @@ export class SiteAdd extends React.Component {
             <div className="ui segment no-border">
                 <div className={"ui fluid action labeled input " + field}>
                     <input ref="longUrl" onKeyDown={this.handleOnKeyDownAddSite} type="text" style={{borderRadius: "0px"}} placeholder="URL for..." />
-                    <button onClick={this.handleOnClickAddSite} className="ui primary button" type="button">Shorten</button>
+                    <button onClick={this.handleOnClickAddSite} className="ui violet button" type="button">Shorten</button>
                 </div>
                 <div style={{marginTop: "10px"}}>
                     {Fail}

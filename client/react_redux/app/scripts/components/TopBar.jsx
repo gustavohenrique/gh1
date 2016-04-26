@@ -13,7 +13,7 @@ export class TopBar extends React.Component {
         return (
             <div className="ui fixed inverted menu">
                 <div className="ui container">
-                    <a className="header item">GH1</a>
+                    <span className="header item">GH1</span>
                     <Link className={path === 'new' || path === undefined ? 'item active' : 'item'} to="new">New</Link>
                     <Link className={path === 'list' ? 'item active' : 'item'} to="list">List</Link>
                     <div className="right menu">

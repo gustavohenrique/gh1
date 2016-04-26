@@ -2,7 +2,6 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Pagination from './Pagination.jsx';
 import SiteList from './SiteList.jsx';
-import TagModal from '../tag/TagModal';
 import * as actions from '../../actions';
 
 

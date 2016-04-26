@@ -40,7 +40,7 @@ export default class SiteCard extends React.Component {
                                     <CopyToClipboard text={site.shortUrl}>
                                         <a title="Copy it"><i className="copy icon"/></a>
                                     </CopyToClipboard>
-                                    <Twitter text={site.title} tags={site.tags} />
+                                    <Twitter text={site.title} url={site.shortUrl} tags={site.tags} />
                                 </div>
                             </div>
                         </div>

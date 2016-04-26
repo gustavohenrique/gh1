@@ -4,7 +4,7 @@
   "description": "Web client using React + Redux for the gh1.co API",
   "scripts": {
     "copy-dev": "cp app/dev.html dist/index.html && cp app/styles/*.css dist/ && cp ./node_modules/jquery/dist/jquery.min.js dist/ && cp -r ./node_modules/semantic-ui/dist/themes dist/ && cp ./node_modules/semantic-ui/dist/semantic.min.js dist/",
-    "copy-prod": "cp app/prod.html dist/index.html && cp app/styles/*.css dist/",
+    "copy-prod": "cp app/prod.html dist/index.html && cp app/styles/main.css dist/",
     "start": "npm run clean && npm run copy-dev && ./node_modules/.bin/webpack-dev-server --progress --colors",
     "build": "npm run clean && npm run copy-prod && NODE_ENV=production ./node_modules/.bin/webpack -p --display-error-details --config webpack.config.prod.js",
     "clean": "./node_modules/.bin/rimraf .tmp dist && mkdir dist",

@@ -128,7 +128,7 @@ export function removeTag (params) {
 }
 
 export function getTags (params) {
-    return (dispatch, getState) => {
+    return (dispatch) => {
         siteApi.getTags(params).then((response) => {
             let tags = [];
             const result = response.data.tags;
