@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react';
-import QRCode from 'qrcode.react';
 import CopyToClipboard from 'react-copy-to-clipboard';
 
 export default class SiteSimpleCard extends React.Component {
@@ -20,9 +19,7 @@ export default class SiteSimpleCard extends React.Component {
                             <a title="Copy it"><i className="copy icon"/></a>
                         </CopyToClipboard>
                     </p>
-                    <p>
-                        {site.longUrl}
-                    </p>
+                    <p>{site.longUrl</p>
                 </div>
             </div>
         );
