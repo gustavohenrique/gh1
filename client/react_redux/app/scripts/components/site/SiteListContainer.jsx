@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Pagination from './Pagination.jsx';
 import SiteList from './SiteList.jsx';
+import TagModal from '../tag/TagModal.jsx';
 import * as actions from '../../actions';
 
 
@@ -18,6 +19,7 @@ class SiteListContainer extends React.Component {
         return (
             <div className="ui segment no-border">
                 <div className="ui header centered align">
+                    <TagModal />
                     <Pagination pagination={pagination} getSites={getSites} />
                     {NoResults}
                 </div>

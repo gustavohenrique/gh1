@@ -19,7 +19,7 @@ export default class SiteSimpleCard extends React.Component {
                             <a title="Copy it"><i className="copy icon"/></a>
                         </CopyToClipboard>
                     </p>
-                    <p>{site.longUrl</p>
+                    <p>{site.longUrl}</p>
                 </div>
             </div>
         );
